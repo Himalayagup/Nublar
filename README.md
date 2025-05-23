@@ -192,5 +192,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Made with ❤️ by Himalaya Gupta
 
 You can find me on [LinkedIn](https://www.linkedin.com/in/himalayagupta/) and [GitHub](https://github.com/himalayagup).
-
-```
