@@ -1,6 +1,6 @@
 # app.py
-from core.path import path
-from response.main import template_response
+from nublar.path import path
+from response.http_response import template_response
 from response import status_codes
 
 @path("/", methods=["GET"], active=False, base_routes=True)
