@@ -5,13 +5,12 @@ from response.main import json_response, text_response
 BASE_PATH = "/v1/" # can be defined as v1 or v1/ or /v1 or /v1/ recommended to not use / at the start or end
 
 
-@path("/submit")
+@path("/submit", methods=["POST"])
 def submit_data(req, method, data):
-    if method == "POST":
-        name = data.get("name") or "Anonymous"
-        if isinstance(name, list):
-            name = name[0]
-        return f"Received name: {name}"
+    name = data.get("name") or "Anonymous"
+    if isinstance(name, list):
+        name = name[0]
+    return f"Received name: {name}"
 
 @path("/api", methods=["GET", "POST"], active=False)
 def api_data(req, method, data=None):

@@ -1,16 +1,14 @@
 from http.server import HTTPServer
 from .request_handler import RequestHandler
 import settings
+from .utils import removing_slashes
 
 HOST = getattr(settings, 'HOST', '127.0.0.1')
 PORT = getattr(settings, 'PORT', 4000)
 PORT = int(PORT) if isinstance(PORT, str) else PORT
 STATIC_FOLDER = getattr(settings, 'STATIC_FOLDER', 'static')
 if STATIC_FOLDER:
-    if STATIC_FOLDER.startswith("/"):
-        STATIC_FOLDER = STATIC_FOLDER[1:]
-    if STATIC_FOLDER.endswith("/"):
-        STATIC_FOLDER = STATIC_FOLDER[:-1]
+    STATIC_FOLDER = removing_slashes(STATIC_FOLDER)
 else:
     STATIC_FOLDER = "static"
 

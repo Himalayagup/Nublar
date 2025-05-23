@@ -17,6 +17,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         method = self.command.upper()
         path = self.path
         static_folder = RequestHandler.static_folder
+        if static_folder.startswith("/"):
+            static_folder = static_folder[1:]
+        if static_folder.endswith("/"):
+            static_folder = static_folder[:-1]
         try:
             if path.startswith(f"/{static_folder}/"):
                 file_path = os.path.join(os.getcwd(), unquote(path.lstrip('/')))
