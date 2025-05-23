@@ -8,6 +8,7 @@ import traceback
 from core.path import ALL_PATHS
 from response.main import Response, status_codes
 import settings
+from core.utils import removing_slashes
 
 DEBUG_CODE = getattr(settings, 'DEBUG_CODE', True)
 
@@ -16,11 +17,13 @@ class RequestHandler(BaseHTTPRequestHandler):
     def handle_request(self):
         method = self.command.upper()
         path = self.path
-        static_folder = RequestHandler.static_folder
-        if static_folder.startswith("/"):
-            static_folder = static_folder[1:]
-        if static_folder.endswith("/"):
-            static_folder = static_folder[:-1]
+        static_folder = removing_slashes(RequestHandler.static_folder)
+        
+        # Cookie handling: Get cookies from the request
+        cookies = self.headers.get('Cookie', '')
+        self.cookies = parse_qs(cookies.replace('; ', '&'))
+
+        
         try:
             if path.startswith(f"/{static_folder}/"):
                 file_path = os.path.join(os.getcwd(), unquote(path.lstrip('/')))
@@ -72,7 +75,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     call_args = {
                         "req": self,
                         "method": method,
-                        **kwargs
+                        **kwargs,
                     }
 
                     if method in ("POST", "PUT", "PATCH", "DELETE"):
@@ -84,6 +87,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                     if isinstance(response, Response):
                         self.send_response(response.status)
                         self.send_header("Content-Type", response.content_type)
+                        if response.cookies:
+                            for cookie in response.cookies:
+                                self.send_header("Set-Cookie", cookie)
                         self.end_headers()
                         self.wfile.write(response.as_bytes())
                     elif isinstance(response, str):

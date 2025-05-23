@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Nublar</title>
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --accent-color: #007acc;
+            --text-color: #333;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .container {
+            text-align: center;
+            padding: 4rem 1rem;
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .box {
+            background: white;
+            display: inline-block;
+            padding: 2rem 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        code {
+            background-color: #eee;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>Welcome to Nublar 🦖</h1>
+            <p>Your Python backend is running smoothly.</p>
+            <p>Edit your routes and logic in <code>main.py</code> or wherever your handler is.</p>
+            <p>Static files are served and JSON APIs are just one function away!</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Nublar Project • Built with 🐍 and ❤️
+    </footer>
+</body>
+
+</html>

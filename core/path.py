@@ -3,7 +3,7 @@ import inspect
 from .utils import removing_slashes
 ALL_PATHS = []
 
-def path(path_pattern, methods=["GET"], prefix="", active=True):
+def path(path_pattern, methods=["GET"], prefix="", active=True, base_routes=False):
     caller_frame = inspect.stack()[1]  # [1] gives the caller's frame
     caller_locals = caller_frame[0].f_locals  # Get local variables from the caller's scope
     if prefix:
@@ -25,6 +25,14 @@ def path(path_pattern, methods=["GET"], prefix="", active=True):
                 "func": func,
                 "methods": set(method.upper() for method in methods),
             })
+        if not ALL_PATHS:
+            if not active and base_routes:
+                # If no active routes are found, add the base route
+                ALL_PATHS.append({
+                    "regex": regex,
+                    "func": func,
+                    "methods": set(method.upper() for method in methods),
+                })
         return func
 
     return decorator

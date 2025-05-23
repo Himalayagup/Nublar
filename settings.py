@@ -2,3 +2,4 @@ DEBUG_CODE = True
 PORT = 4000
 HOST = "127.0.0.1"
 STATIC_FOLDER = "static"
+TEMPLATE_FOLDER = "templates"

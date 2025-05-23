@@ -3,17 +3,17 @@ from core.path import path
 from response.main import text_response, html_response, template_response
 from response import status_codes
 
-@path("/", methods=["GET"])
+@path("/homepage", methods=["GET"])
 def home(req, method):
     return text_response("Welcome to the homepage!", status=status_codes.HTTP_200_OK)
 
 @path("/about")
 def about(req, method):
-    return "This is the about page."
+    return text_response("This is the about page.")
 
 @path("/user/<id>")
 def get_user(req, method, id):
-    return f"User ID is: {id}"
+    return text_response(f"User ID is: {id}")
 
 @path("/post/<slug>", methods=["GET"])
 def get_post(req, method, slug):

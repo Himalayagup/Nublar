@@ -2,6 +2,7 @@
 from core.main import CoreHTTPServer
 import settings
 import app
+import core.app
 
 HOST = getattr(settings, 'HOST', '127.0.0.1')
 if not HOST:
