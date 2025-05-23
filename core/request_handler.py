@@ -1,6 +1,8 @@
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs
-
+from mimetypes import MimeTypes
+from urllib.parse import unquote
+import os
 import json
 
 
@@ -8,9 +10,28 @@ from path import ROUTES
 from response.main import Response
 
 class RequestHandler(BaseHTTPRequestHandler):
+
     def handle_request(self):
         method = self.command.upper()
         path = self.path
+        static_folder = RequestHandler.static_folder
+        if path.startswith(f"/{static_folder}/"):
+            file_path = os.path.join(os.getcwd(), unquote(path.lstrip('/')))
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                mime = MimeTypes()
+                # Get MIME type from file extension
+                content_type, _ = mime.guess_type(file_path)
+
+                if content_type is None:
+                    content_type = 'application/octet-stream'
+                # Send a 200 response, headers, and the file content
+                self.send_response(200)
+                self.send_header("Content-Type", content_type)
+                self.end_headers()
+
+                with open(file_path, "rb") as f:
+                    self.wfile.write(f.read())
+                return
 
         for route in ROUTES:
             match = route["regex"].match(path)

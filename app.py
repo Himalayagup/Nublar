@@ -5,7 +5,7 @@ from response.main import json_response, text_response
 
 @path("/", methods=["GET"])
 def home(req, method):
-    return text_response("Welcome to the homepage as!", status=200)
+    return text_response("Welcome to the homepage!", status=200)
 
 @path("/about")
 def about(req, method):
