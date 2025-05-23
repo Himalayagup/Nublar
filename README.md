@@ -1,6 +1,6 @@
-# Nublar
+# Nublar 🦖
 
-Nublar is a minimalistic, Python-based web framework designed to handle both function-based views (FBVs) and class-based views (CBVs). It is built with simplicity and flexibility in mind, allowing you to create dynamic web applications with ease. Whether you prefer using function-based views or class-based views, Nublar supports both mechanisms seamlessly.
+Nublar 🦖 is a minimalistic, Python-based web framework designed to handle both function-based views (FBVs) and class-based views (CBVs). It is built with simplicity and flexibility in mind, allowing you to create dynamic web applications with ease. Whether you prefer using function-based views or class-based views, Nublar supports both mechanisms seamlessly.
 
 ## Features
 
@@ -50,7 +50,7 @@ Nublar is a minimalistic, Python-based web framework designed to handle both fun
    Example of defining an FBV:
 
    ```python
-   from core.path import path
+   from nublar.path import path
    from response.http_response import text_response
 
    @path("/hello")
@@ -63,7 +63,7 @@ Nublar is a minimalistic, Python-based web framework designed to handle both fun
    Example of defining a CBV:
 
    ```python
-   from core.views import BaseView
+   from nublar.views import BaseView
    from response.http_response import text_response
 
    class AboutView(BaseView):
@@ -74,19 +74,19 @@ Nublar is a minimalistic, Python-based web framework designed to handle both fun
    Registering the CBV with URL routing:
 
    ```python
-   from core.router import router
+   from nublar.router import router
 
    router.register("/about", AboutView)
    ```
 
 3. **Handling Cookies**:
 
-   You can easily set, get, and delete cookies using the `core.cookies` utilities.
+   You can easily set, get, and delete cookies using the `nublar.cookies` utilities.
 
    * **Set a Cookie**:
 
      ```python
-     from core.cookies import set_cookie
+     from nublar.cookies import set_cookie
 
      @path("/set-cookie")
      def set_cookie_view(request, method):
@@ -99,7 +99,7 @@ Nublar is a minimalistic, Python-based web framework designed to handle both fun
    * **Get a Cookie**:
 
      ```python
-     from core.cookies import get_cookie
+     from nublar.cookies import get_cookie
 
      @path("/get-cookie")
      def get_cookie_view(request, method):
@@ -113,7 +113,7 @@ Nublar is a minimalistic, Python-based web framework designed to handle both fun
    * **Delete a Cookie**:
 
      ```python
-     from core.cookies import delete_cookie
+     from nublar.cookies import delete_cookie
 
      @path("/delete-cookie")
      def delete_cookie_view(request, method):
@@ -130,7 +130,7 @@ Here’s an overview of the project structure:
 ```
 nublar/
 ├── app.py              # Main entry point for the application
-├── core/
+├── nublar/
 │   ├── __init__.py     # Package initialization
 │   ├── path.py         # URL routing system (handles path matching)
 │   ├── cookies.py      # Cookie utilities (set, get, delete cookies)
@@ -152,7 +152,7 @@ nublar/
 
 * **Views**: You can define views using either function-based views (decorated with `@path()`) or class-based views that extend `BaseView`. You can easily manage HTTP methods (GET, POST, etc.) within each view.
 
-* **Cookies**: The `core.cookies` module provides functions to set, get, and delete cookies, which are then automatically added to the HTTP response.
+* **Cookies**: The `nublar.cookies` module provides functions to set, get, and delete cookies, which are then automatically added to the HTTP response.
 
 * **Template Rendering**: Nublar allows you to render HTML templates by passing a context dictionary that will be injected into the template placeholders.
 
@@ -162,10 +162,10 @@ Here’s an example of a simple app:
 
 ```python
 # app.py
-from core.path import path
+from nublar.path import path
 from response.http_response import text_response
-from core.views import BaseView
-from core.router import router
+from nublar.views import BaseView
+from nublar.router import router
 
 # Simple FBV (Function-based View)
 @path("/home")
