@@ -1,5 +1,5 @@
 # run_server.py
-from core.main import CoreHTTPServer
+from core.http_server import CoreHTTPServer
 import settings
 import app
 import core.app

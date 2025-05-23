@@ -23,6 +23,6 @@ def get_cookie_view(req, method):
 @path("/delete-cookie")
 def delete_cookie_view(req, method):
     cookie_header = delete_cookie("username")
-    response = text_response("Cookie has been deleted!")
+    response = text_response("Cookie has been deleted yay!")
     response.add_cookie(cookie_header)  # Add the delete cookie header to the response
     return response
