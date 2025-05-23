@@ -6,7 +6,7 @@ import os
 import json
 
 
-from path import ROUTES
+from core.path import ALL_PATHS
 from response.main import Response
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -33,7 +33,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.wfile.write(f.read())
                 return
 
-        for route in ROUTES:
+        for route in ALL_PATHS:
             match = route["regex"].match(path)
             if match:
                 if method not in route["methods"]:

@@ -1,6 +1,6 @@
 import re
 
-ROUTES = []
+ALL_PATHS = []
 
 def path(path_pattern, methods=["GET"]):
     # Convert "/user/<id>" → regex with named groups
@@ -8,7 +8,7 @@ def path(path_pattern, methods=["GET"]):
     regex = re.compile(f"^{pattern}$")
 
     def decorator(func):
-        ROUTES.append({
+        ALL_PATHS.append({
             "regex": regex,
             "func": func,
             "methods": set(method.upper() for method in methods),

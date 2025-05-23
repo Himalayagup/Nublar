@@ -1,5 +1,5 @@
 # app.py
-from path import path
+from core.path import path
 from response.main import json_response, text_response
 
 
