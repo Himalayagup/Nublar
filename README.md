@@ -17,7 +17,7 @@ Nublar is a minimalistic, Python-based web framework designed to handle both fun
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/nublar.git
+   git clone [text](https://github.com/Himalayagup/Nublar.git)
    cd nublar
     ```
 
