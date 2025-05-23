@@ -35,10 +35,10 @@ Nublar is a minimalistic, Python-based web framework designed to handle both fun
 
 1. **Start the server**:
 
-   To start the development server, simply run:
+   To start the server, simply run:
 
    ```bash
-   python app.py
+   python run.py
    ```
 
 2. **Define Routes**:
