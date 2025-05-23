@@ -1,11 +1,17 @@
 import re
-
+import inspect
 ALL_PATHS = []
 
 def path(path_pattern, methods=["GET"], prefix=""):
-    full_path = f"{prefix}{path_pattern}" if prefix else path_pattern
+    caller_frame = inspect.stack()[1]  # [1] gives the caller's frame
+    caller_locals = caller_frame[0].f_locals  # Get local variables from the caller's scope
+    caller_base_url = caller_locals.get('BASE_PATH', None)
+    if caller_base_url:
+        full_path = f"/{caller_base_url}/{prefix}{path_pattern}" if prefix else f"/{caller_base_url}{path_pattern}"
+    else:
+        full_path = f"/{prefix}{path_pattern}" if prefix else path_pattern
     # Convert "/user/<id>" → regex with named groups
-    pattern = re.sub(r"<(\w+)>", r"(?P<\1>[^/]+)", path_pattern)
+    pattern = re.sub(r"<(\w+)>", r"(?P<\1>[^/]+)", full_path)
     regex = re.compile(f"^{pattern}$")
 
     def decorator(func):

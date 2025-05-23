@@ -1,1 +1,2 @@
-from first_app.pages import *
+import example_app.pages
+import example_app.pages_2
