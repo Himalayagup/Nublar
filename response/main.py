@@ -1,4 +1,5 @@
 import json
+from . import status_codes
 
 class Response:
     def __init__(self, content, status=200, content_type="text/plain"):
@@ -11,12 +12,12 @@ class Response:
             return self.content.encode()
         return self.content
 
-def json_response(data: dict, status=200):
+def json_response(data: dict, status=status_codes.HTTP_200_OK):
     body = json.dumps(data)
     return Response(body, status=status, content_type="application/json")
 
-def html_response(html: str, status=200):
+def html_response(html: str, status=status_codes.HTTP_200_OK):
     return Response(html, status=status, content_type="text/html")
 
-def text_response(text: str, status=200):
+def text_response(text: str, status=status_codes.HTTP_200_OK):
     return Response(text, status=status, content_type="text/plain")

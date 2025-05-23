@@ -1,8 +1,21 @@
 from http.server import HTTPServer
 from .request_handler import RequestHandler
+import settings
+
+HOST = getattr(settings, 'HOST', '127.0.0.1')
+PORT = getattr(settings, 'PORT', 4000)
+PORT = int(PORT) if isinstance(PORT, str) else PORT
+STATIC_FOLDER = getattr(settings, 'STATIC_FOLDER', 'static')
+if STATIC_FOLDER:
+    if STATIC_FOLDER.startswith("/"):
+        STATIC_FOLDER = STATIC_FOLDER[1:]
+    if STATIC_FOLDER.endswith("/"):
+        STATIC_FOLDER = STATIC_FOLDER[:-1]
+else:
+    STATIC_FOLDER = "static"
 
 class CoreHTTPServer:
-    def __init__(self, host='localhost', port=4000, static_folder="static"):
+    def __init__(self, host=HOST, port=PORT, static_folder=STATIC_FOLDER):
         self.server_address = (host, port)
         self.static_folder = static_folder
         self.httpd = HTTPServer(self.server_address, RequestHandler)
