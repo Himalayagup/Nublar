@@ -22,6 +22,7 @@ Nublar 🦖 is a minimalistic, Python-based web framework designed to handle bot
     ```
 
 2. Install the dependencies:
+   * There is no dependency as of now, all code is pure python.
 
    ```bash
    pip install -r requirements.txt
