@@ -194,16 +194,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 You can find me on [LinkedIn](https://www.linkedin.com/in/himalayagupta/) and [GitHub](https://github.com/himalayagup).
 
 ```
-
-### Key Sections:
-
-- **Installation**: Describes how to clone the repository, install dependencies, and start the server.
-- **Usage**: Explains how to define both FBVs and CBVs and register them with the router.
-- **File Structure**: Provides an overview of the project directory.
-- **How It Works**: Describes the core functionality of routing, views, cookies, and template rendering.
-- **Example Usage**: Shows a quick example of the code.
-- **Contributing**: Information about contributing to the project.
-- **License**: Mentions the MIT License and links to the license file.
-
-This `README.md` provides clear instructions on how to set up, use, and contribute to the project, and it also provides an overview of the project features and structure.
-```
