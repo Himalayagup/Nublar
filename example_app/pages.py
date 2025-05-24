@@ -5,7 +5,7 @@ from response import status_codes  # Import HTTP status codes
 
 # Define route for "/homepage" that responds with a text message
 @path("/homepage", methods=["GET"])  # Only allows GET method
-def home(req, method):
+def home(req, method, headers):
     """
     Handle the GET request for the homepage.
     Returns a simple text response with a 200 OK status.

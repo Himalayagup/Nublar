@@ -1,10 +1,10 @@
 from http.server import BaseHTTPRequestHandler
-from urllib.parse import parse_qs, unquote
+from urllib.parse import parse_qs, unquote, urlparse
 from mimetypes import MimeTypes
 import os
 import json
 import traceback
-
+import inspect
 from nublar.path import ALL_PATHS  # List of all registered routes
 from response.http_response import Response  # Response class to create HTTP responses
 from response import status_codes  # HTTP status codes
@@ -28,13 +28,15 @@ class RequestHandler(BaseHTTPRequestHandler):
         """
 
         method = self.command.upper()  # The HTTP method (GET, POST, etc.)
-        path = self.path  # The request path (URL)
+        parsed = urlparse(self.path)
+        query_params = parse_qs(parsed.query)
+        headers = dict(self.headers)
+        path = parsed.path  # The request path (URL)
         static_folder = removing_slashes(RequestHandler.static_folder)  # Static folder path from settings
 
         # Cookie handling: Get cookies from the request
         cookies = self.headers.get('Cookie', '')
         self.cookies = parse_qs(cookies.replace('; ', '&'))  # Parse cookies into a dictionary
-
 
         try:
             # Check if the path is for a static file
@@ -93,11 +95,12 @@ class RequestHandler(BaseHTTPRequestHandler):
                             data = parse_qs(raw)
                         else:
                             data = {"raw": raw}  # Default to raw data
-
                     # Prepare the arguments to pass to the route handler function
                     call_args = {
                         "req": self,    # Pass the request object to the handler
                         "method": method,
+                        "query": query_params,
+                        "headers":headers,
                         **kwargs,   # Additional parameters from the URL path
                     }
 
@@ -105,7 +108,10 @@ class RequestHandler(BaseHTTPRequestHandler):
                         call_args["data"] = data    # Include the data for methods that have a body
 
                     # Call the route handler function and get the response
-                    response = route["func"](**call_args)
+                    sig = inspect.signature(route["func"])
+                    filtered_args = {k: v for k, v in call_args.items() if k in sig.parameters}
+
+                    response = route["func"](**filtered_args)
 
                     # Handle the response depending on its type (Response object, string, or raw content)
                     if isinstance(response, Response):
