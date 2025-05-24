@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs, unquote, urlparse
+from .base_request import Request  # Importing the custom Request class for handling request data
 from mimetypes import MimeTypes
 import os
 import json
@@ -108,10 +109,40 @@ class RequestHandler(BaseHTTPRequestHandler):
                         call_args["data"] = data    # Include the data for methods that have a body
 
                     # Call the route handler function and get the response
+                    request = Request(
+                        method=method,
+                        path=path,
+                        headers=headers,
+                        query=query_params,
+                        body=data,
+                        cookies=cookies,
+                    )
+                    # Now build call_args smartly
                     sig = inspect.signature(route["func"])
-                    filtered_args = {k: v for k, v in call_args.items() if k in sig.parameters}
+                    param_names = list(sig.parameters.keys())
 
-                    response = route["func"](**filtered_args)
+                    call_args = {}
+                    if "req" in param_names:
+                        call_args["req"] = request
+                    if "method" in param_names:
+                        call_args["method"] = method
+                    if "query" in param_names:
+                        call_args["query"] = request.query
+                    if "headers" in param_names:
+                        call_args["headers"] = request.headers
+                    if "cookies" in param_names:
+                        call_args["cookies"] = request.cookies
+                    if "data" in param_names:
+                        call_args["data"] = request.body
+                    if "path_params" in param_names:
+                        call_args["path_params"] = request.path_params
+
+                    # Also include any named path params directly
+                    for key in request.path_params:
+                        if key in param_names:
+                            call_args[key] = request.path_params[key]
+
+                    response = route["func"](**call_args)
 
                     # Handle the response depending on its type (Response object, string, or raw content)
                     if isinstance(response, Response):

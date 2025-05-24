@@ -10,15 +10,19 @@ def home(req, method, headers):
     Handle the GET request for the homepage.
     Returns a simple text response with a 200 OK status.
     """
+    print(f"Headers received: {req.headers}")  # Log headers
+    # print(f"Headers received: {headers}")  # Log headers
     return text_response("Welcome to the homepage!", status=status_codes.HTTP_200_OK)
 
 # Define route for "/about" that responds with a text message
 @path("/about")  # Default is GET method
-def about(req, method):
+def about(req, method, query):
     """
     Handle the request for the about page.
     Returns a simple text response indicating this is the about page.
     """
+    print(f"Query parameters received: {query}")  # Log query
+    # print(f"Query parameters received: {req.query}")  # Log query
     return text_response("This is the about page.")
 
 # Define route for "/user/<id>" where <id> is a variable part of the URL
