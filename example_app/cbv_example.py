@@ -1,6 +1,7 @@
-from nublar.views import BaseView  # Importing the BaseView class for creating views
-from response.http_response import text_response  # Importing the text_response function for creating text responses
+# views.py
+from nublar.views import BaseView
+from response.http_response import text_response
 
 class AboutView(BaseView):
-    def get(self, request, **kwargs):
-        return text_response("This is the about page.")
+    def get(self, request, query=None, **kwargs):
+        return text_response("This is the CBV about page.")
