@@ -1,5 +1,3 @@
-# nublar/commands/migrate.py
-
 import os
 import importlib
 

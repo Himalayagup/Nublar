@@ -1,5 +1,3 @@
-# models/base.py
-
 class Field:
     def __init__(self, field_type, primary_key=False, null=False, default=None, unique=False):
         self.type = field_type

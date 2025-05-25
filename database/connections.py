@@ -1,4 +1,3 @@
-# db/connection.py
 import sqlite3
 
 def get_connection():

@@ -1,4 +1,3 @@
-# models/student.py
 from database.base import Model, IntegerField, CharField
 
 class Student(Model):

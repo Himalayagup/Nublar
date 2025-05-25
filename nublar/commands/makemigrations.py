@@ -1,5 +1,3 @@
-# nublar/commands/makemigrations.py
-
 import os
 import importlib
 from database.model_utils import get_model_schema, compare_schemas, write_migration

@@ -1,4 +1,3 @@
-# nublar/generate.py
 import os
 from datetime import datetime
 from database.connections import get_connection
