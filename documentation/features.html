@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,60 +13,73 @@
             padding: 0;
             color: #333;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
+
         nav {
             background: #f8f9fa;
             padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         nav ul {
             list-style: none;
             padding: 0;
             margin: 0;
             display: flex;
             gap: 2rem;
+            justify-content: center;
         }
+
         nav a {
             text-decoration: none;
             color: #2c3e50;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
+
         nav a:hover {
             color: #3498db;
         }
+
         pre {
             background: #f8f9fa;
             padding: 1rem;
             border-radius: 4px;
             overflow-x: auto;
         }
+
         code {
             font-family: 'Courier New', Courier, monospace;
             background: #f1f1f1;
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
         }
+
         .feature-section {
             margin: 2rem 0;
             padding: 2rem;
             background: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .feature-section h2 {
             color: #2c3e50;
             margin-top: 0;
         }
+
         .example {
             background: #f8f9fa;
             padding: 1.5rem;
             border-radius: 4px;
             margin: 1rem 0;
         }
+
         footer {
             text-align: center;
             padding: 2rem;
@@ -74,6 +88,7 @@
         }
     </style>
 </head>
+
 <body>
     <nav>
         <div class="container">
@@ -91,11 +106,13 @@
 
     <div class="container">
         <h1>Nublar Features</h1>
-        <p>Nublar provides a rich set of features to help you build web applications quickly and efficiently. Here's a detailed look at what Nublar offers:</p>
+        <p>Nublar provides a rich set of features to help you build web applications quickly and efficiently. Here's a
+            detailed look at what Nublar offers:</p>
 
         <div class="feature-section">
             <h2>1. Routing System</h2>
-            <p>Nublar offers a flexible routing system that supports both function-based views (FBVs) and class-based views (CBVs).</p>
+            <p>Nublar offers a flexible routing system that supports both function-based views (FBVs) and class-based
+                views (CBVs).</p>
 
             <h3>Function-Based Views</h3>
             <div class="example">
@@ -112,6 +129,8 @@ def user_profile(request, method, id):
         return text_response(f"Viewing profile for user {id}")
     elif method == "POST":
         return text_response(f"Updating profile for user {id}")</code></pre>
+            <h4>Learn More About FBV here</h4>
+            <a href="fbv.html">Click here to Learn More</a> or <a href="api-reference.html">Click here to Learn More</a>
             </div>
 
             <h3>Class-Based Views</h3>
@@ -135,7 +154,40 @@ router.register("/user/<id>", UserView)</code></pre>
         </div>
 
         <div class="feature-section">
-            <h2>2. Cookie Management</h2>
+            <h2>2. Request Params Handling</h2>
+            <p>Nublar offers a flexible routing system to handle query, args, headers etc, with centralized request or individual objects</p>
+        
+            <h3>Example 1:</h3>
+            <div class="example">
+                <pre><code># Define route for "/about" that responds with a text message
+@path("/about") # Default is GET method
+def about(req, method, query):
+    """
+    Handle the request for the about page.
+    Returns a simple text response indicating this is the about page.
+    """
+    print(f"Query parameters received: {query}") # Log query
+    # print(f"Query parameters received: {req.query}") # Log query
+    return text_response("Thisis the about page.")</code></pre>
+            </div>
+        
+            <h3>Example 2:</h3>
+            <div class="example">
+                <pre><code># Define route for "/homepage" that responds with a text message
+@path("/homepage", methods=["GET"]) # Only allows GET method
+def home(req, method, headers):
+    """
+    Handle the GET request for the homepage.
+    Returns a simple text response with a 200 OK status.
+    """
+    print(f"Headers received: {req.headers}") # Log headers
+    # print(f"Headers received: {headers}") # Log headers
+    return text_response("Welcome to the homepage!", status=status_codes.HTTP_200_OK)</code></pre>
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <h2>3. Cookie Management</h2>
             <p>Nublar provides easy-to-use cookie management functions for setting, getting, and deleting cookies.</p>
 
             <div class="example">
@@ -164,7 +216,7 @@ def delete_cookie_view(request, method):
         </div>
 
         <div class="feature-section">
-            <h2>3. Template System</h2>
+            <h2>4. Template System</h2>
             <p>Nublar includes a powerful template system for rendering HTML with dynamic content.</p>
 
             <div class="example">
@@ -201,7 +253,7 @@ def profile(request, method):
         </div>
 
         <div class="feature-section">
-            <h2>4. Static File Handling</h2>
+            <h2>5. Static File Handling</h2>
             <p>Nublar automatically handles static files (CSS, JavaScript, images) with proper MIME type detection.</p>
 
             <div class="example">
@@ -225,7 +277,7 @@ myproject/
         </div>
 
         <div class="feature-section">
-            <h2>5. Error Handling</h2>
+            <h2>6. Error Handling</h2>
             <p>Nublar provides comprehensive error handling with customizable error pages and debug mode support.</p>
 
             <div class="example">
@@ -244,7 +296,7 @@ def trigger_error(request, method):
         </div>
 
         <div class="feature-section">
-            <h2>6. Database Integration</h2>
+            <h2>7. Database Integration</h2>
             <p>Nublar includes a simple but powerful database system with model definitions and migrations.</p>
 
             <div class="example">
@@ -263,7 +315,7 @@ python mediator.py migrate</code></pre>
         </div>
 
         <div class="feature-section">
-            <h2>7. Command Line Interface</h2>
+            <h2>8. Command Line Interface</h2>
             <p>Nublar provides a command-line interface for common development tasks.</p>
 
             <div class="example">
@@ -290,4 +342,5 @@ python mediator.py migrate</code></pre>
         </div>
     </footer>
 </body>
-</html> 
+
+</html>

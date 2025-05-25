@@ -18,24 +18,30 @@
             padding: 2rem;
         }
         nav {
-            background: #f8f9fa;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--bg-light);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
+
         nav ul {
             list-style: none;
             padding: 0;
             margin: 0;
             display: flex;
             gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
+
         nav a {
             text-decoration: none;
-            color: #2c3e50;
+            color: var(--primary-color);
             font-weight: 500;
+            transition: color 0.3s ease;
         }
+
         nav a:hover {
-            color: #3498db;
+            color: var(--accent-color);
         }
         pre {
             background: #f8f9fa;
@@ -177,7 +183,7 @@ def home(request, method):
             <h2>Template Inheritance</h2>
             <p>Nublar supports template inheritance, allowing you to create a base template that other templates can extend.</p>
 
-            <h3>Base Template</h3>
+            <h3>Base Template (To be added)</h3>
             <div class="example">
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -202,7 +208,7 @@ def home(request, method):
 &lt;/html&gt;</code></pre>
             </div>
 
-            <h3>Child Template</h3>
+            <h3>Child Template (To be added)</h3>
             <div class="example">
                 <pre><code>{% extends "base.html" %}
 
@@ -216,7 +222,7 @@ def home(request, method):
         </div>
 
         <div class="template-section">
-            <h2>Template Includes</h2>
+            <h2>Template Includes (To be added)</h2>
             <p>You can include other template files using the <code>{% include %}</code> tag.</p>
 
             <h3>Header Component</h3>

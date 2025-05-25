@@ -1,121 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nublar Documentation</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Official documentation for Nublar – a lightweight, Python-based full-stack web framework built for simplicity and flexibility." />
+    <meta property="og:title" content="Nublar Documentation" />
+    <meta property="og:description"
+        content="A minimalistic Python web framework for building full-stack applications quickly and simply." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://example.com/nublar-og-image.jpg" /> <!-- Replace with actual OG image -->
+    <meta property="og:url" content="https://yourdomain.com" />
+    <title>Nublar Documentation | Python Full Stack Web Framework</title>
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-light: #f8f9fa;
+            --bg-hero: #f1f8ff;
+            --text-dark: #333;
+            --text-muted: #666;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            color: #333;
+            color: var(--text-dark);
+            background-color: #fff;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 2rem 1rem;
         }
+
         nav {
-            background: #f8f9fa;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--bg-light);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
+
         nav ul {
             list-style: none;
             padding: 0;
             margin: 0;
             display: flex;
             gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
+
         nav a {
             text-decoration: none;
-            color: #2c3e50;
+            color: var(--primary-color);
             font-weight: 500;
+            transition: color 0.3s ease;
         }
+
         nav a:hover {
-            color: #3498db;
+            color: var(--accent-color);
         }
+
         .hero {
             text-align: center;
-            padding: 4rem 0;
-            background: #f1f8ff;
+            padding: 4rem 1rem;
+            background: var(--bg-hero);
             margin-bottom: 2rem;
         }
+
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: #2c3e50;
+            color: var(--primary-color);
         }
+
         .hero p {
             font-size: 1.2rem;
-            color: #666;
-            max-width: 600px;
+            color: var(--text-muted);
+            max-width: 700px;
             margin: 0 auto;
         }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 3rem;
+            color: var(--primary-color);
+        }
+
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
+
         .feature-card {
-            background: white;
+            background: #fff;
             padding: 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
         .feature-card h3 {
-            color: #2c3e50;
+            color: var(--primary-color);
             margin-top: 0;
         }
+
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, Monaco, 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
         footer {
             text-align: center;
-            padding: 2rem;
-            background: #f8f9fa;
+            padding: 2rem 1rem;
+            background: var(--bg-light);
             margin-top: 4rem;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
-<body>
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="getting-started.html">Getting Started</a></li>
-                <li><a href="features.html">Features</a></li>
-                <li><a href="api-reference.html">API Reference</a></li>
-                <li><a href="templates.html">Templates</a></li>
-                <li><a href="database.html">Database</a></li>
-                <li><a href="deployment.html">Deployment</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <div class="hero">
+<body>
+
+    <header>
+        <nav>
+            <div class="container">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="getting-started.html">Getting Started</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="api-reference.html">API Reference</a></li>
+                    <li><a href="templates.html">Templates</a></li>
+                    <li><a href="database.html">Database</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
         <div class="container">
             <h1>Nublar Documentation 🦖</h1>
-            <p>A minimalistic, Python-based web framework designed for simplicity and flexibility</p>
+            <p>A minimalistic, Python-based full stack web framework designed for simplicity and flexibility</p>
         </div>
-    </div>
+    </section>
 
-    <div class="container">
+    <main class="container">
         <h2>Welcome to Nublar</h2>
-        <p>Nublar is a lightweight and powerful web framework built in Python, designed to make web development simpler and faster. Whether you're building REST APIs, serving static files, or managing dynamic content, Nublar provides a clean and intuitive way to create web applications.</p>
+        <p>Nublar is a lightweight and powerful web framework built in Python, designed to make web development simpler
+            and faster. Whether you're building REST APIs, serving static files, or managing dynamic content, Nublar
+            provides a clean and intuitive way to create web applications.</p>
+        <p>Nublar is a full stack web development framework.</p>
 
         <div class="features">
             <div class="feature-card">
                 <h3>Simple Routing</h3>
-                <p>Define routes using function-based views (FBVs) or class-based views (CBVs) with an intuitive decorator syntax.</p>
+                <p>Define routes using function-based views (FBVs) or class-based views (CBVs - Under Development*) with
+                    an intuitive decorator syntax.</p>
             </div>
             <div class="feature-card">
                 <h3>Built-in Templates</h3>
-                <p>Powerful template rendering system with support for context data injection and template inheritance.</p>
+                <p>Powerful template rendering system with support for context data injection and template inheritance.
+                </p>
             </div>
             <div class="feature-card">
-                <h3>Cookie Management</h3>
-                <p>Easy-to-use cookie handling with built-in support for setting, getting, and deleting cookies.</p>
+                <h3>Cookie-Header Management</h3>
+                <p>Easy-to-use cookie and header handling with built-in support for setting, getting, and
+                    deleting/removing.</p>
             </div>
             <div class="feature-card">
                 <h3>Static File Serving</h3>
@@ -144,13 +234,16 @@ python mediator.py startapp myapp
 python mediator.py runserver</code></pre>
 
         <p>For detailed instructions, check out our <a href="getting-started.html">Getting Started</a> guide.</p>
-    </div>
+    </main>
 
     <footer>
         <div class="container">
             <p>&copy; 2025 Nublar Project • Built with 🐍 and ❤️</p>
-            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a></p>
+            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank"
+                    rel="noopener noreferrer">Himalaya Gupta</a></p>
         </div>
     </footer>
+
 </body>
-</html> 
+
+</html>

@@ -105,7 +105,7 @@
         <h1>Deployment</h1>
         <p>This guide covers everything you need to know about deploying your Nublar application to production. We'll cover different deployment options, configuration, and best practices.</p>
 
-        <div class="deploy-section">
+        <!-- <div class="deploy-section">
             <h2>Preparing for Deployment</h2>
             <p>Before deploying your application, there are several important steps to take:</p>
 
@@ -141,7 +141,7 @@ python mediator.py collectstatic</code></pre>
                 <pre><code># Apply all migrations
 python mediator.py migrate</code></pre>
             </div>
-        </div>
+        </div> -->
 
         <div class="deploy-section">
             <h2>Deployment Options</h2>
@@ -192,7 +192,7 @@ server {
     }
 
     location / {
-        proxy_pass http://127.0.0.1:8000;
+        proxy_pass http://127.0.0.1:4000;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -202,7 +202,7 @@ server {
             <h4>Running with Gunicorn</h4>
             <div class="example">
                 <pre><code># Start Gunicorn
-gunicorn --workers 3 --bind 127.0.0.1:8000 run:app
+gunicorn --workers 3 --bind 127.0.0.1:4000 run:app
 
 # Using systemd service
 # /etc/systemd/system/nublar.service
@@ -215,7 +215,7 @@ User=youruser
 Group=yourgroup
 WorkingDirectory=/path/to/your/project
 Environment="PATH=/path/to/your/venv/bin"
-ExecStart=/path/to/your/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 run:app
+ExecStart=/path/to/your/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:4000 run:app
 
 [Install]
 WantedBy=multi-user.target</code></pre>
@@ -267,9 +267,9 @@ COPY . .
 RUN python mediator.py collectstatic --noinput
 RUN python mediator.py migrate
 
-EXPOSE 8000
+EXPOSE 4000
 
-CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "run:app"]</code></pre>
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:4000", "run:app"]</code></pre>
             </div>
 
             <h4>Docker Compose</h4>
@@ -281,7 +281,7 @@ services:
   web:
     build: .
     ports:
-      - "8000:8000"
+      - "4000:4000"
     volumes:
       - .:/app
     environment:
@@ -340,7 +340,7 @@ add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";</cod
         </div>
 
         <div class="deploy-section">
-            <h2>Monitoring and Maintenance</h2>
+            <h2>Monitoring and Maintenance (To be added)</h2>
 
             <h3>1. Logging</h3>
             <p>Configure logging in your application:</p>

@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn how to get started with Nublar, a simple and powerful Python-based full-stack web framework.">
+    <meta name="keywords" content="Nublar, Python framework, web development, getting started, full-stack framework">
+    <meta property="og:title" content="Getting Started with Nublar Documentation">
+    <meta property="og:description"
+        content="Complete guide to set up and run your first application with Nublar framework.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/getting-started.html">
     <title>Getting Started - Nublar Documentation</title>
     <style>
         body {
@@ -11,59 +20,109 @@
             margin: 0;
             padding: 0;
             color: #333;
+            background-color: #fff;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 2rem 1rem;
         }
+
         nav {
             background: #f8f9fa;
             padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         nav ul {
             list-style: none;
             padding: 0;
             margin: 0;
             display: flex;
             gap: 2rem;
+            justify-content: center;
         }
+
         nav a {
             text-decoration: none;
             color: #2c3e50;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
+
         nav a:hover {
             color: #3498db;
         }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
         pre {
             background: #f8f9fa;
             padding: 1rem;
             border-radius: 4px;
             overflow-x: auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
+
         code {
             font-family: 'Courier New', Courier, monospace;
             background: #f1f1f1;
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
         }
+
         .note {
             background: #e3f2fd;
             padding: 1rem;
             border-radius: 4px;
             margin: 1rem 0;
+            border-left: 4px solid #3498db;
         }
+
         footer {
             text-align: center;
             padding: 2rem;
             background: #f8f9fa;
             margin-top: 4rem;
         }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .callout {
+            background: #f1f8ff;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 4px solid #3498db;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
+
 <body>
+
     <nav>
         <div class="container">
             <ul>
@@ -80,10 +139,10 @@
 
     <div class="container">
         <h1>Getting Started with Nublar</h1>
-        
+
         <h2>Installation</h2>
         <p>Nublar is a pure Python framework with no external dependencies. To get started:</p>
-        
+
         <h3>1. Clone the Repository</h3>
         <pre><code>git clone https://github.com/Himalayagup/Nublar.git
 cd nublar</code></pre>
@@ -98,12 +157,13 @@ python3 -m venv venv
 source venv/bin/activate</code></pre>
 
         <div class="note">
-            <strong>Note:</strong> While Nublar has no external dependencies, it's recommended to use a virtual environment to keep your project isolated.
+            <strong>Note:</strong> While Nublar has no external dependencies, it's recommended to use a virtual
+            environment to keep your project isolated.
         </div>
 
         <h2>Creating Your First App</h2>
         <p>Nublar provides a command-line tool to create new applications:</p>
-        
+
         <pre><code>python mediator.py startapp myapp</code></pre>
 
         <p>This will create a new application with the following structure:</p>
@@ -167,7 +227,8 @@ def hello(request, method):
         <pre><code>python mediator.py runserver --host=0.0.0.0 --port=8000</code></pre>
 
         <div class="note">
-            <strong>Note:</strong> The server will be available at <code>http://localhost:4000</code> by default. Visit <code>http://localhost:4000/hello</code> to see your first view in action.
+            <strong>Note:</strong> The server will be available at <code>http://localhost:4000</code> by default. Visit
+            <code>http://localhost:4000/hello</code> to see your first view in action.
         </div>
 
         <h2>Next Steps</h2>
@@ -186,4 +247,5 @@ def hello(request, method):
         </div>
     </footer>
 </body>
-</html> 
+
+</html>

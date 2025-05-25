@@ -18,24 +18,30 @@
             padding: 2rem;
         }
         nav {
-            background: #f8f9fa;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--bg-light);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
+
         nav ul {
             list-style: none;
             padding: 0;
             margin: 0;
             display: flex;
             gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
+
         nav a {
             text-decoration: none;
-            color: #2c3e50;
+            color: var(--primary-color);
             font-weight: 500;
+            transition: color 0.3s ease;
         }
+
         nav a:hover {
-            color: #3498db;
+            color: var(--accent-color);
         }
         pre {
             background: #f8f9fa;
@@ -205,7 +211,7 @@ post = Post(
 post.save()</code></pre>
             </div>
 
-            <h3>Retrieving Objects</h3>
+            <h3>Retrieving Objects (Under development)</h3>
             <div class="example">
                 <pre><code># Get all users
 users = User.objects.all()
@@ -222,7 +228,7 @@ first_user = User.objects.first()
 last_user = User.objects.last()</code></pre>
             </div>
 
-            <h3>Updating Objects</h3>
+            <h3>Updating Objects (Under development)</h3>
             <div class="example">
                 <pre><code># Update a single object
 user = User.objects.get(email="john@example.com")
@@ -233,7 +239,7 @@ user.save()
 User.objects.filter(is_active=False).update(is_active=True)</code></pre>
             </div>
 
-            <h3>Deleting Objects</h3>
+            <h3>Deleting Objects (Under development)</h3>
             <div class="example">
                 <pre><code># Delete a single object
 user = User.objects.get(email="john@example.com")
@@ -245,7 +251,7 @@ User.objects.filter(is_active=False).delete()</code></pre>
         </div>
 
         <div class="db-section">
-            <h2>Advanced Queries</h2>
+            <h2>Advanced Queries (To be added)</h2>
 
             <h3>Complex Filters</h3>
             <div class="example">
