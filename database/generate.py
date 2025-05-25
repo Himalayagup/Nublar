@@ -22,7 +22,7 @@ def makemigrations(app_name: str, model_classes):
 
     init_path = os.path.join(migrations_dir, "__init__.py")
     if not os.path.exists(init_path):
-        with open(init_path, "w"): 
+        with open(init_path, "w"):
             pass
 
     ts = datetime.now().strftime("%Y%m%d%H%M%S")

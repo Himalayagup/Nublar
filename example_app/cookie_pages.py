@@ -1,4 +1,3 @@
-# app.py
 from nublar.cookies import set_cookie, get_cookie, delete_cookie  # Import cookie utility functions
 from response.http_response import text_response, json_response  # Import response functions
 from nublar.path import path  # Import the path decorator for defining URL routes

@@ -1,4 +1,3 @@
-# app.py
 from nublar.path import path  # Import the 'path' decorator for defining URL routes
 from response.http_response import json_response, text_response  # Import response functions
 

@@ -60,6 +60,16 @@ def main():
                 if "--port=" in args[2]:
                     port = int(args[2].split("=")[1])
         run_server(host, port)
+    elif command == "startapp":
+        if len(args) < 2:
+            print("Usage: mediator.py startapp <app_name>")
+            return
+        app_name = args[1]
+        try:
+            import nublar.commands.startapp as startapp
+            startapp.run(app_name)
+        except ImportError:
+            print("Startapp command not found. Make sure you have the correct package installed.")
     else:
         print(f"Unknown command: {command}")
 
