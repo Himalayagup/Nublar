@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Nublar Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #3498db;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        .feature-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .feature-section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .example {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Nublar Features</h1>
+        <p>Nublar provides a rich set of features to help you build web applications quickly and efficiently. Here's a detailed look at what Nublar offers:</p>
+
+        <div class="feature-section">
+            <h2>1. Routing System</h2>
+            <p>Nublar offers a flexible routing system that supports both function-based views (FBVs) and class-based views (CBVs).</p>
+
+            <h3>Function-Based Views</h3>
+            <div class="example">
+                <pre><code>from nublar.path import path
+from response.http_response import text_response
+
+@path("/hello")
+def hello(request, method):
+    return text_response("Hello, World!")
+
+@path("/user/<id>", methods=["GET", "POST"])
+def user_profile(request, method, id):
+    if method == "GET":
+        return text_response(f"Viewing profile for user {id}")
+    elif method == "POST":
+        return text_response(f"Updating profile for user {id}")</code></pre>
+            </div>
+
+            <h3>Class-Based Views</h3>
+            <div class="example">
+                <pre><code>from nublar.views import BaseView
+from response.http_response import text_response
+
+class UserView(BaseView):
+    def get(self, request, **kwargs):
+        user_id = kwargs.get('id')
+        return text_response(f"Viewing profile for user {user_id}")
+
+    def post(self, request, **kwargs):
+        user_id = kwargs.get('id')
+        return text_response(f"Updating profile for user {user_id}")
+
+# Register the view
+from nublar.router import router
+router.register("/user/<id>", UserView)</code></pre>
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <h2>2. Cookie Management</h2>
+            <p>Nublar provides easy-to-use cookie management functions for setting, getting, and deleting cookies.</p>
+
+            <div class="example">
+                <pre><code>from nublar.cookies import set_cookie, get_cookie, delete_cookie
+from response.http_response import text_response
+
+@path("/set-cookie")
+def set_cookie_view(request, method):
+    cookie_header = set_cookie("username", "JohnDoe", max_age=3600)
+    response = text_response("Cookie set!")
+    response.add_cookie(cookie_header)
+    return response
+
+@path("/get-cookie")
+def get_cookie_view(request, method):
+    username = get_cookie(request, "username")
+    return text_response(f"Hello, {username or 'Guest'}!")
+
+@path("/delete-cookie")
+def delete_cookie_view(request, method):
+    cookie_header = delete_cookie("username")
+    response = text_response("Cookie deleted!")
+    response.add_cookie(cookie_header)
+    return response</code></pre>
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <h2>3. Template System</h2>
+            <p>Nublar includes a powerful template system for rendering HTML with dynamic content.</p>
+
+            <div class="example">
+                <pre><code>from response.http_response import template_response
+
+@path("/profile")
+def profile(request, method):
+    context = {
+        "username": "JohnDoe",
+        "email": "john@example.com",
+        "is_active": True
+    }
+    return template_response("profile.html", context)</code></pre>
+            </div>
+
+            <p>Template example (<code>templates/profile.html</code>):</p>
+            <div class="example">
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Profile&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome, {{ username }}!&lt;/h1&gt;
+    &lt;p&gt;Email: {{ email }}&lt;/p&gt;
+    {% if is_active %}
+        &lt;p&gt;Status: Active&lt;/p&gt;
+    {% else %}
+        &lt;p&gt;Status: Inactive&lt;/p&gt;
+    {% endif %}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <h2>4. Static File Handling</h2>
+            <p>Nublar automatically handles static files (CSS, JavaScript, images) with proper MIME type detection.</p>
+
+            <div class="example">
+                <pre><code># Project structure
+myproject/
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── app.js
+│   └── images/
+│       └── logo.png</code></pre>
+            </div>
+
+            <p>Access static files in your templates:</p>
+            <div class="example">
+                <pre><code>&lt;link rel="stylesheet" href="/static/css/style.css"&gt;
+&lt;script src="/static/js/app.js"&gt;&lt;/script&gt;
+&lt;img src="/static/images/logo.png" alt="Logo"&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <h2>5. Error Handling</h2>
+            <p>Nublar provides comprehensive error handling with customizable error pages and debug mode support.</p>
+
+            <div class="example">
+                <pre><code># settings.py
+DEBUG_CODE = True  # Enable detailed error messages in development
+
+# Custom error handling in views
+@path("/error")
+def trigger_error(request, method):
+    raise ValueError("This is a test error")
+
+# The framework will automatically handle the error and return:
+# - Detailed error page in debug mode
+# - Generic error page in production</code></pre>
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <h2>6. Database Integration</h2>
+            <p>Nublar includes a simple but powerful database system with model definitions and migrations.</p>
+
+            <div class="example">
+                <pre><code># myapp/models.py
+from database.base import Model, CharField, IntegerField
+
+class User(Model):
+    name = CharField(max_length=100)
+    age = IntegerField()
+    email = CharField(max_length=255)
+
+# Create and apply migrations
+python mediator.py makemigrations myapp
+python mediator.py migrate</code></pre>
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <h2>7. Command Line Interface</h2>
+            <p>Nublar provides a command-line interface for common development tasks.</p>
+
+            <div class="example">
+                <pre><code># Create a new app
+python mediator.py startapp myapp
+
+# Run the development server
+python mediator.py runserver
+
+# Run with custom host and port
+python mediator.py runserver --host=0.0.0.0 --port=8000
+
+# Database migrations
+python mediator.py makemigrations myapp
+python mediator.py migrate</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nublar Project • Built with 🐍 and ❤️</p>
+            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a></p>
+        </div>
+    </footer>
+</body>
+</html> 

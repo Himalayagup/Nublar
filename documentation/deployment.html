@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment - Nublar Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #3498db;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        .deploy-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .deploy-section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .example {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .note {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .warning {
+            background: #fff3e0;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Deployment</h1>
+        <p>This guide covers everything you need to know about deploying your Nublar application to production. We'll cover different deployment options, configuration, and best practices.</p>
+
+        <div class="deploy-section">
+            <h2>Preparing for Deployment</h2>
+            <p>Before deploying your application, there are several important steps to take:</p>
+
+            <h3>1. Update Settings</h3>
+            <div class="example">
+                <pre><code># settings.py
+
+# Production settings
+DEBUG = False
+SECRET_KEY = "your-secure-secret-key"  # Change this!
+ALLOWED_HOSTS = ["yourdomain.com", "www.yourdomain.com"]
+
+# Database settings
+DB_NAME = "db.sqlite3"  # Consider using a more robust database in production
+
+# Static files
+STATIC_URL = "/static/"
+STATIC_ROOT = "staticfiles/"  # Directory to collect static files</code></pre>
+            </div>
+
+            <div class="warning">
+                <strong>Important:</strong> Never use the default secret key in production. Generate a secure random key and keep it secret.
+            </div>
+
+            <h3>2. Collect Static Files</h3>
+            <div class="example">
+                <pre><code># Collect all static files into STATIC_ROOT
+python mediator.py collectstatic</code></pre>
+            </div>
+
+            <h3>3. Database Migration</h3>
+            <div class="example">
+                <pre><code># Apply all migrations
+python mediator.py migrate</code></pre>
+            </div>
+        </div>
+
+        <div class="deploy-section">
+            <h2>Deployment Options</h2>
+
+            <h3>1. Traditional VPS (Virtual Private Server)</h3>
+            <p>Deploying on a VPS gives you full control over your server environment.</p>
+
+            <h4>Requirements</h4>
+            <ul>
+                <li>Linux server (Ubuntu recommended)</li>
+                <li>Python 3.8 or higher</li>
+                <li>Nginx or Apache web server</li>
+                <li>Gunicorn or uWSGI as WSGI server</li>
+            </ul>
+
+            <h4>Installation Steps</h4>
+            <div class="example">
+                <pre><code># Update system
+sudo apt update
+sudo apt upgrade
+
+# Install Python and required packages
+sudo apt install python3 python3-pip python3-venv nginx
+
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install project dependencies
+pip install -r requirements.txt
+pip install gunicorn
+
+# Install and configure Nginx
+sudo apt install nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx</code></pre>
+            </div>
+
+            <h4>Nginx Configuration</h4>
+            <div class="example">
+                <pre><code># /etc/nginx/sites-available/nublar
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+
+    location /static/ {
+        alias /path/to/your/staticfiles/;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}</code></pre>
+            </div>
+
+            <h4>Running with Gunicorn</h4>
+            <div class="example">
+                <pre><code># Start Gunicorn
+gunicorn --workers 3 --bind 127.0.0.1:8000 run:app
+
+# Using systemd service
+# /etc/systemd/system/nublar.service
+[Unit]
+Description=Nublar Gunicorn Service
+After=network.target
+
+[Service]
+User=youruser
+Group=yourgroup
+WorkingDirectory=/path/to/your/project
+Environment="PATH=/path/to/your/venv/bin"
+ExecStart=/path/to/your/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 run:app
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+            </div>
+
+            <h3>2. Platform as a Service (PaaS)</h3>
+            <p>PaaS providers offer easier deployment with less server management.</p>
+
+            <h4>Heroku</h4>
+            <div class="example">
+                <pre><code># Procfile
+web: gunicorn run:app
+
+# runtime.txt
+python-3.9.0
+
+# Install Heroku CLI and deploy
+heroku create your-app-name
+git push heroku main
+heroku run python mediator.py migrate</code></pre>
+            </div>
+
+            <h4>PythonAnywhere</h4>
+            <div class="example">
+                <pre><code># WSGI configuration file
+import sys
+path = '/home/yourusername/yourproject'
+if path not in sys.path:
+    sys.path.append(path)
+
+from run import app as application</code></pre>
+            </div>
+
+            <h3>3. Docker Deployment</h3>
+            <p>Docker provides consistent environments across different platforms.</p>
+
+            <h4>Dockerfile</h4>
+            <div class="example">
+                <pre><code># Dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+RUN python mediator.py collectstatic --noinput
+RUN python mediator.py migrate
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "run:app"]</code></pre>
+            </div>
+
+            <h4>Docker Compose</h4>
+            <div class="example">
+                <pre><code># docker-compose.yml
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=your-secret-key
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=nublar
+      - POSTGRES_USER=nublar
+      - POSTGRES_PASSWORD=your-password
+
+volumes:
+  postgres_data:</code></pre>
+            </div>
+        </div>
+
+        <div class="deploy-section">
+            <h2>Security Considerations</h2>
+
+            <h3>1. Environment Variables</h3>
+            <p>Use environment variables for sensitive information:</p>
+            <div class="example">
+                <pre><code># settings.py
+import os
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')</code></pre>
+            </div>
+
+            <h3>2. SSL/TLS</h3>
+            <p>Always use HTTPS in production. You can use Let's Encrypt for free SSL certificates:</p>
+            <div class="example">
+                <pre><code># Install Certbot
+sudo apt install certbot python3-certbot-nginx
+
+# Obtain certificate
+sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com</code></pre>
+            </div>
+
+            <h3>3. Security Headers</h3>
+            <p>Add security headers to your Nginx configuration:</p>
+            <div class="example">
+                <pre><code># Nginx configuration
+add_header X-Frame-Options "SAMEORIGIN";
+add_header X-XSS-Protection "1; mode=block";
+add_header X-Content-Type-Options "nosniff";
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";</code></pre>
+            </div>
+        </div>
+
+        <div class="deploy-section">
+            <h2>Monitoring and Maintenance</h2>
+
+            <h3>1. Logging</h3>
+            <p>Configure logging in your application:</p>
+            <div class="example">
+                <pre><code># settings.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'nublar.log',
+        },
+    },
+    'loggers': {
+        'nublar': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}</code></pre>
+            </div>
+
+            <h3>2. Backup Strategy</h3>
+            <ul>
+                <li>Regular database backups</li>
+                <li>Static file backups</li>
+                <li>Configuration backups</li>
+                <li>Test restore procedures</li>
+            </ul>
+
+            <h3>3. Performance Monitoring</h3>
+            <ul>
+                <li>Monitor server resources (CPU, memory, disk)</li>
+                <li>Set up application performance monitoring</li>
+                <li>Configure error tracking</li>
+                <li>Set up uptime monitoring</li>
+            </ul>
+
+            <div class="note">
+                <strong>Note:</strong> Regular maintenance and monitoring are crucial for keeping your application running smoothly in production.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nublar Project • Built with 🐍 and ❤️</p>
+            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a></p>
+        </div>
+    </footer>
+</body>
+</html> 

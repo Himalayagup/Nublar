@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nublar Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #3498db;
+        }
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: #f1f8ff;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Nublar Documentation 🦖</h1>
+            <p>A minimalistic, Python-based web framework designed for simplicity and flexibility</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Welcome to Nublar</h2>
+        <p>Nublar is a lightweight and powerful web framework built in Python, designed to make web development simpler and faster. Whether you're building REST APIs, serving static files, or managing dynamic content, Nublar provides a clean and intuitive way to create web applications.</p>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>Simple Routing</h3>
+                <p>Define routes using function-based views (FBVs) or class-based views (CBVs) with an intuitive decorator syntax.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Built-in Templates</h3>
+                <p>Powerful template rendering system with support for context data injection and template inheritance.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Cookie Management</h3>
+                <p>Easy-to-use cookie handling with built-in support for setting, getting, and deleting cookies.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Static File Serving</h3>
+                <p>Efficient static file handling with automatic MIME type detection and proper caching headers.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Database Integration</h3>
+                <p>Simple database models with field types and automatic migrations.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Error Handling</h3>
+                <p>Comprehensive error handling with customizable error pages and debug mode support.</p>
+            </div>
+        </div>
+
+        <h2>Quick Start</h2>
+        <p>Get started with Nublar in minutes:</p>
+        <pre><code># Install Nublar
+git clone https://github.com/Himalayagup/Nublar.git
+cd nublar
+
+# Create a new app
+python mediator.py startapp myapp
+
+# Start the development server
+python mediator.py runserver</code></pre>
+
+        <p>For detailed instructions, check out our <a href="getting-started.html">Getting Started</a> guide.</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nublar Project • Built with 🐍 and ❤️</p>
+            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a></p>
+        </div>
+    </footer>
+</body>
+</html> 
