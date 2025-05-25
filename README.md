@@ -136,7 +136,7 @@ def profile(request, method):
 Nublar provides several CLI commands to help with development:
 
 ```bash
-# Start the development server
+# Start the server
 python mediator.py start
 
 # Create a new application
