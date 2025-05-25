@@ -49,7 +49,7 @@ def application(environ, start_response):
         start_response(status, response_headers)
         return [b'Internal Server Error']
 
-# For development server
+# For server
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
     server = make_server('127.0.0.1', 4000, application)
