@@ -36,7 +36,7 @@ Visit `http://localhost:4000` to see your app running!
 
 ## Documentation
 
-For detailed documentation, visit our [official documentation site](https://nublarframework.com). The documentation covers:
+For detailed documentation, visit our [official documentation site](http://himalayagup.github.io/Nublar/). The documentation covers:
 
 - Getting Started Guide
 - Features Overview
