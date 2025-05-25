@@ -1,0 +1,5 @@
+# Core dependencies
+# Add your project dependencies here
+
+# Optional WSGI server (uncomment if you want to use Gunicorn)
+# gunicorn==21.2.0
