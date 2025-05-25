@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - Nublar</title>
+  <style>
+    :root {
+      --bg-color: #f0f4f8;
+      --accent-color: #007acc;
+      --text-color: #333;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1rem;
+    }
+
+    .box {
+      background-color: white;
+      padding: 2rem 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #e0e0e0;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Nublar</header>
+
+  <div class="container">
+    <div class="box">
+      <h1>About Us</h1>
+      <p>Nublar is a lightweight and powerful backend server built in Python, designed to make web development simpler and faster. Whether you're serving static files, building REST APIs, or managing JSON responses, Nublar delivers a minimal yet robust developer experience.</p>
+      <p>Inspired by the simplicity of Flask and the speed of modern microservices, Nublar helps you spin up reliable services with ease. It's ideal for rapid prototyping, educational purposes, or full-scale microservices where control and customization matter.</p>
+      <p>Our mission is to give developers a hassle-free backend experience, combining performance, flexibility, and readability.</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Nublar Project • Built with 🐍 and ❤️
+  </footer>
+
+</body>
+</html>

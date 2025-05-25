@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - Nublar Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        nav {
+            background: var(--bg-light);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        .api-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .api-section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .method {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .endpoint {
+            font-family: monospace;
+            background: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        .parameter {
+            margin: 1rem 0;
+        }
+        .parameter-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .parameter-type {
+            color: #666;
+            font-style: italic;
+        }
+        .example {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>API Reference</h1>
+        <p>This document provides a comprehensive reference for Nublar's API, including all available functions, classes, and their usage.</p>
+
+        <div class="api-section">
+            <h2>Routing</h2>
+            
+            <h3>@path Decorator</h3>
+            <p>The <code>@path</code> decorator is used to register routes for your views.</p>
+            
+            <div class="example">
+                <pre><code>from nublar.path import path
+
+@path(path_pattern, methods=["GET"], prefix="", active=True, base_routes=False)
+def view_function(request, method, **kwargs):
+    # Your view logic here
+    pass</code></pre>
+            </div>
+
+            <h4>Parameters:</h4>
+            <div class="parameter">
+                <span class="parameter-name">path_pattern</span>
+                <span class="parameter-type">(str)</span>
+                <p>The URL pattern to match (e.g., "/user/<id>").</p>
+            </div>
+            <div class="parameter">
+                <span class="parameter-name">methods</span>
+                <span class="parameter-type">(list)</span>
+                <p>List of HTTP methods to accept (default: ["GET"]).</p>
+            </div>
+            <div class="parameter">
+                <span class="parameter-name">prefix</span>
+                <span class="parameter-type">(str)</span>
+                <p>Optional prefix for the route (default: "").</p>
+            </div>
+            <div class="parameter">
+                <span class="parameter-name">active</span>
+                <span class="parameter-type">(bool)</span>
+                <p>Whether the route is active (default: True).</p>
+            </div>
+            <div class="parameter">
+                <span class="parameter-name">base_routes</span>
+                <span class="parameter-type">(bool)</span>
+                <p>Add base route when no other routes are active (default: False).</p>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>Views</h2>
+
+            <h3>BaseView Class</h3>
+            <p>The base class for class-based views.</p>
+
+            <div class="example">
+                <pre><code>from nublar.views import BaseView
+
+class MyView(BaseView):
+    def get(self, request, **kwargs):
+        # Handle GET request
+        pass
+
+    def post(self, request, **kwargs):
+        # Handle POST request
+        pass
+
+    def put(self, request, **kwargs):
+        # Handle PUT request
+        pass</code></pre>
+            </div>
+
+            <h4>Methods:</h4>
+            <ul>
+                <li><code>get(request, **kwargs)</code> - Handle GET requests</li>
+                <li><code>post(request, **kwargs)</code> - Handle POST requests</li>
+                <li><code>put(request, **kwargs)</code> - Handle PUT requests</li>
+                <li><code>dispatch(request, **kwargs)</code> - Dispatch request to appropriate method</li>
+            </ul>
+        </div>
+
+        <div class="api-section">
+            <h2>Response Types</h2>
+
+            <h3>Text Response</h3>
+            <div class="example">
+                <pre><code>from response.http_response import text_response
+
+@path("/hello")
+def hello(request, method):
+    return text_response("Hello, World!")</code></pre>
+            </div>
+
+            <h3>JSON Response</h3>
+            <div class="example">
+                <pre><code>from response.http_response import json_response
+
+@path("/api/data")
+def get_data(request, method):
+    data = {
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+    }
+    return json_response(data)</code></pre>
+            </div>
+
+            <h3>HTML Response</h3>
+            <div class="example">
+                <pre><code>from response.http_response import html_response
+
+@path("/about")
+def about(request, method):
+    html = "&lt;h1&gt;About Us&lt;/h1&gt;&lt;p&gt;Welcome to our site!&lt;/p&gt;"
+    return html_response(html)</code></pre>
+            </div>
+
+            <h3>Template Response</h3>
+            <div class="example">
+                <pre><code>from response.http_response import template_response
+
+@path("/profile")
+def profile(request, method):
+    context = {
+        "username": "John",
+        "email": "john@example.com"
+    }
+    return template_response("profile.html", context)</code></pre>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>Cookie Management</h2>
+
+            <h3>Setting Cookies</h3>
+            <div class="example">
+                <pre><code>from nublar.cookies import set_cookie
+from response.http_response import text_response
+
+@path("/set-cookie")
+def set_cookie_view(request, method):
+    cookie_header = set_cookie(
+        name="username",
+        value="JohnDoe",
+        max_age=3600,  # Cookie expires in 1 hour
+        path="/",
+        domain=None,
+        secure=False,
+        httponly=False
+    )
+    response = text_response("Cookie set!")
+    response.add_cookie(cookie_header)
+    return response</code></pre>
+            </div>
+
+            <h3>Getting Cookies</h3>
+            <div class="example">
+                <pre><code>from nublar.cookies import get_cookie
+from response.http_response import text_response
+
+@path("/get-cookie")
+def get_cookie_view(request, method):
+    username = get_cookie(request, "username")
+    return text_response(f"Hello, {username or 'Guest'}!")</code></pre>
+            </div>
+
+            <h3>Deleting Cookies</h3>
+            <div class="example">
+                <pre><code>from nublar.cookies import delete_cookie
+from response.http_response import text_response
+
+@path("/delete-cookie")
+def delete_cookie_view(request, method):
+    cookie_header = delete_cookie("username")
+    response = text_response("Cookie deleted!")
+    response.add_cookie(cookie_header)
+    return response</code></pre>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>Request Object</h2>
+            <p>The request object provides access to the incoming request data.</p>
+
+            <div class="example">
+                <pre><code>@path("/api/echo")
+def echo(request, method):
+    # Access request data
+    method = request.method
+    path = request.path
+    headers = request.headers
+    query = request.query
+    body = request.body
+    cookies = request.cookies
+    path_params = request.path_params
+
+    return json_response({
+        "method": method,
+        "path": path,
+        "headers": headers,
+        "query": query,
+        "body": body,
+        "cookies": cookies,
+        "path_params": path_params
+    })</code></pre>
+            </div>
+
+            <h4>Request Object Attributes:</h4>
+            <ul>
+                <li><code>method</code> - HTTP method (GET, POST, etc.)</li>
+                <li><code>path</code> - Request path</li>
+                <li><code>headers</code> - Request headers</li>
+                <li><code>query</code> - Query parameters</li>
+                <li><code>body</code> - Request body data</li>
+                <li><code>cookies</code> - Request cookies</li>
+                <li><code>path_params</code> - URL path parameters</li>
+            </ul>
+        </div>
+
+        <div class="api-section">
+            <h2>Database Models</h2>
+
+            <h3>Model Definition</h3>
+            <div class="example">
+                <pre><code>from database.base import Model, CharField, IntegerField, BooleanField
+
+class User(Model):
+    name = CharField(max_length=100)
+    age = IntegerField()
+    email = CharField(max_length=255)
+    is_active = BooleanField(default=True)</code></pre>
+            </div>
+
+            <h4>Available Field Types:</h4>
+            <ul>
+                <li><code>CharField(max_length=None)</code> - String field</li>
+                <li><code>IntegerField()</code> - Integer field</li>
+                <li><code>BooleanField(default=False)</code> - Boolean field</li>
+                <li><code>TextField()</code> - Long text field</li>
+                <li><code>DateTimeField(auto_now=False, auto_now_add=False)</code> - DateTime field</li>
+            </ul>
+
+            <h3>Model Operations</h3>
+            <div class="example">
+                <pre><code># Create a new user
+user = User(name="John", age=30, email="john@example.com")
+user.save()
+
+# Query users
+users = User.objects.all()
+active_users = User.objects.filter(is_active=True)
+john = User.objects.get(name="John")
+
+# Update a user
+john.age = 31
+john.save()
+
+# Delete a user
+john.delete()</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nublar Project • Built with 🐍 and ❤️</p>
+            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a></p>
+        </div>
+    </footer>
+</body>
+</html> 

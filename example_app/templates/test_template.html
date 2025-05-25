@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Features Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 3px;
+        }
+
+        .expensive {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .cheap {
+            color: #388e3c;
+        }
+
+        .filters-demo {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .filters-demo p {
+            margin: 5px 0;
+            padding: 5px;
+            background: white;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Template Features Demo</h1>
+
+    <!-- Conditional Rendering Section -->
+    <div class="section">
+        <h2>Conditional Rendering</h2>
+        {% if user.is_active %}
+            <p>Welcome back, {{ user.name|title }}!</p>
+            {% if user.role == 'admin' %}
+            <p><strong>Admin Dashboard Access</strong></p>
+            {% elif user.role == 'moderator' %}
+            <p><strong>Moderator Controls</strong></p>
+            {% else %}
+            <p><strong>User Dashboard</strong></p>
+            {% endif %}
+        {% else %}
+        <p>Please activate your account to continue.</p>
+        {% endif %}
+    </div>
+
+    <!-- Loop Example Section -->
+    <div class="section">
+        <h2>Loop Example</h2>
+        <h3>Items List ({{ items|length }} items)</h3>
+        {% for item in items %}
+        <div class="item">
+            <h4>{{ item.name|title }}</h4>
+            <p>Price: ${{ item.price|round:2 }}</p>
+            {% if item.price > 100 %}
+            <span class="expensive">Expensive Item!</span>
+            {% elif item.price < 50 %} <span class="cheap">Great Deal!</span>
+                {% else %}
+                <span>Regular Price</span>
+                {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- User Profile Section -->
+    <div class="section">
+        <h2>User Profile</h2>
+        <div class="filters-demo">
+            <p><strong>Name:</strong> {{ user.name|title }}</p>
+            <p><strong>Email:</strong> {{ user.email|lower }}</p>
+            <p><strong>Role:</strong> {{ user.role|upper }}</p>
+            <p><strong>Join Date:</strong> {{ user.join_date|date:"%B %d, %Y" }}</p>
+            <p><strong>Bio:</strong> {{ user.bio|default:"No bio provided"|truncate:50 }}</p>
+        </div>
+    </div>
+
+    <!-- Template Filters Section -->
+    <div class="section">
+        <h2>Template Filters Demo</h2>
+        <div class="filters-demo">
+            <h3>String Filters</h3>
+            <p>Original: {{ user.name }}</p>
+            <p>Title Case: {{ user.name|title }}</p>
+            <p>Uppercase: {{ user.name|upper }}</p>
+            <p>Lowercase: {{ user.name|lower }}</p>
+
+            <h3>Number Filters</h3>
+            <p>Price as Integer: {{ items.0.price|int }}</p>
+            <p>Price as Float: {{ items.0.price|float }}</p>
+            <p>Rounded Price: {{ items.0.price|round:2 }}</p>
+
+            <h3>List Filters</h3>
+            <p>Number of Items: {{ items|length }}</p>
+            <p>Joined Items: {{ items|join:", " }}</p>
+
+            <h3>HTML Safety</h3>
+            <p>Escaped HTML: {{ html_content }}</p>
+            <p>Safe HTML: {{ html_content|safe }}</p>
+
+            <h3>Default Values</h3>
+            <p>With Default: {{ user.missing_field|default:"Not provided" }}</p>
+            <p>With Default (empty string): {{ user.empty_field|default:"Empty!" }}</p>
+        </div>
+    </div>
+</body>
+
+</html>

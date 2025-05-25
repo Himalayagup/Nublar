@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function-Based Views (FBVs) - Nublar Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background: #f4f4f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        nav {
+            background: var(--bg-light);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Function-Based Views (FBVs) in Nublar</h1>
+        <p>Function-Based Views (FBVs) provide a simple and flexible way to define routes in Nublar. With FBVs, you can
+            directly map URLs to Python functions, making it easy to define views for different HTTP methods, query
+            parameters, dynamic paths, and more.</p>
+
+        <!-- Overview Section -->
+        <div class="section">
+            <h2>Overview</h2>
+            <p>FBVs are Python functions that act as request handlers. Each function corresponds to a specific URL
+                pattern and can handle requests based on the HTTP method (GET, POST, etc.). The Nublar framework
+                provides a simple decorator, @path, to register a function as a route handler.</p>
+        </div>
+
+        <!-- Example Section -->
+        <div class="section">
+            <h2>Example: Basic FBV</h2>
+            <p>Here's a simple example of a route that responds with a text message for the "/homepage" URL:</p>
+            <pre><code>from nublar.path import path
+from response.http_response import text_response
+
+@path("/homepage", methods=["GET"])
+def home(req, method, headers):
+    """
+    Handle the GET request for the homepage.
+    Returns a simple text response with a 200 OK status.
+    """
+    print(f"Headers received: {req.headers}")  # Log headers
+    return text_response("Welcome to the homepage!", status=200)</code></pre>
+            <p>This route listens for GET requests to "/homepage" and responds with a simple text message, along with
+                logging the request headers.</p>
+        </div>
+
+        <!-- Dynamic Path Variables -->
+        <div class="section">
+            <h2>Dynamic Path Variables</h2>
+            <p>FBVs in Nublar support dynamic path variables, which allow you to capture parts of the URL as parameters.
+            </p>
+
+            <h3>Example: Dynamic User ID</h3>
+            <pre><code>@path("/user/<id>")
+def get_user(req, method, id):
+    """
+    Handle the request to get user details by user ID.
+    Returns a text response with the user ID in the message.
+    """
+    return text_response(f"User ID is: {id}")</code></pre>
+            <p>In this example, the route "/user/<id>" captures the `id` from the URL and passes it to the `get_user`
+                    function, which responds with the user ID.</p>
+        </div>
+
+        <!-- Handling Different HTTP Methods -->
+        <div class="section">
+            <h2>Handling Different HTTP Methods</h2>
+            <p>FBVs can be configured to handle specific HTTP methods, such as GET, POST, PUT, DELETE, etc.</p>
+
+            <h3>Example: Handling GET and POST Methods</h3>
+            <pre><code>@path("/post/<slug>", methods=["GET"])
+def get_post(req, method, slug):
+    """
+    Handle the request to get a blog post by slug.
+    Returns a text response with the post slug in the message.
+    """
+    return text_response(f"Post slug: {slug}")</code></pre>
+            <p>This route is configured to handle GET requests to "/post/<slug>" and returns a text response showing the
+                    post's slug.</p>
+        </div>
+
+        <!-- Query Parameters -->
+        <div class="section">
+            <h2>Handling Query Parameters</h2>
+            <p>You can access query parameters in the URL with the `req.query` object. These parameters are typically
+                included in URLs like `/search?q=example`.</p>
+
+            <h3>Example: Query Parameters</h3>
+            <pre><code>@path("/about")
+def about(req, method, query):
+    """
+    Handle the request for the about page.
+    Returns a simple text response indicating this is the about page.
+    """
+    print(f"Query parameters received: {query}")  # Log query
+    return text_response("This is the about page.")</code></pre>
+            <p>This route listens for requests to "/about" and logs the query parameters received. It then returns a
+                simple message indicating that the page is the about page.</p>
+        </div>
+
+        <!-- Template Rendering -->
+        <div class="section">
+            <h2>Rendering Templates</h2>
+            <p>FBVs in Nublar can also render HTML templates, allowing for dynamic content generation.</p>
+
+            <h3>Example: Rendering a Template</h3>
+            <pre><code>@path("/about-template")
+def about_template(req, method):
+    """
+    Handle the request for the about page using a template.
+    Renders the "about.html" template and returns it as a response.
+    """
+    template_name = "about.html"  # Template file name
+    return template_response(template_name, status=200)</code></pre>
+            <p>This route uses a template called "about.html" to render content for the "/about-template" route.</p>
+        </div>
+
+        <!-- POST Method Example -->
+        <div class="section">
+            <h2>Handling POST Requests</h2>
+            <p>FBVs can also handle POST requests, typically used for submitting forms or data to the server.</p>
+
+            <h3>Example: Handling a POST Request</h3>
+            <pre><code>@path("/post", methods=["POST"])
+def submit_data(req, method, data):
+    """
+    Handle POST requests to the '/v1/post' endpoint.
+    Retrieves the 'name' field from the request body.
+    """
+    name = data.get("name") or "Anonymous"  # Default to "Anonymous" if no name is provided
+    if isinstance(name, list):  # If the name is a list, take the first item
+        name = name[0]
+    return text_response(f"Post Received name: {name}")</code></pre>
+            <p>This example handles POST requests to the "/post" route and returns the submitted name in the response.
+            </p>
+        </div>
+
+        <!-- Base Path Example -->
+        <div class="section">
+            <h2>Base Path</h2>
+            <p>It's common to define a base path for your API or routes. You can set a base path like "/v1" for
+                versioning your API.</p>
+
+            <h3>Example: Base Path in Action</h3>
+            <pre><code>BASE_PATH = "/v1/"
+
+@path("/post", methods=["POST"])
+def submit_data(req, method, data):
+    """
+    Handle POST requests to the '/v1/post' endpoint.
+    """
+    name = data.get("name") or "Anonymous"
+    return text_response(f"Post Received name: {name}")</code></pre>
+            <p>This example shows how you can define a base path like "/v1" for all routes, organizing your API
+                versioning.</p>
+        </div>
+
+        <div class="section">
+            <h2>Variables Available in Function-Based Views (FBVs)</h2>
+            <p>The following variables are available within your view functions, providing you with key details about the
+                incoming request and allowing you to control the behavior of your view more effectively:</p>
+            <ul>
+                <li><strong>req</strong>:
+                    <p>The <code>request</code> object represents the incoming HTTP request. It contains various properties and
+                        methods to access details such as the request path, query parameters, form data, headers, cookies, and
+                        more. You can access <code>req.query</code> for query parameters, <code>req.headers</code> for headers,
+                        and <code>req.data</code> for POST data.</p>
+                </li>
+                <li><strong>method</strong>:
+                    <p>The <code>method</code> refers to the HTTP method used for the request, such as <code>GET</code>,
+                        <code>POST</code>, <code>PUT</code>, <code>DELETE</code>, etc. This allows your view function to
+                        differentiate between requests based on their method.</p>
+                </li>
+                <li><strong>headers</strong>:
+                    <p>The <code>headers</code> represent the HTTP headers sent along with the request. Headers can include
+                        metadata like content type, user-agent, authorization tokens, and more. For example,
+                        <code>req.headers['Content-Type']</code> can be used to check if the request body is in JSON format.</p>
+                </li>
+                <li><strong>query</strong>:
+                    <p>The <code>query</code> contains the query parameters extracted from the URL. Query parameters are
+                        key-value pairs that follow a <code>?</code> in the URL. For example, in <code>/search?q=python</code>,
+                        the <code>query</code> will contain <code>{ "q": "python" }</code>.</p>
+                </li>
+                <li><strong>data</strong>:
+                    <p>The <code>data</code> represents the body of the request, typically used in <code>POST</code> and
+                        <code>PUT</code> requests. It can include form data or JSON payloads. You can access the data sent in a
+                        POST request, e.g., <code>data.get("name")</code>.</p>
+                </li>
+                <li><strong>active</strong>:
+                    <p>The <code>active</code> variable indicates whether the current view is active or inactive. If set to
+                        <code>False</code>, the route will not be registered for processing, but you can still define it in your
+                        application for future use or conditional registration.</p>
+                </li>
+                <li><strong>prefix</strong>:
+                    <p>The <code>prefix</code> is an optional value that allows you to prepend a segment to the route URL. This
+                        can be dynamically set and helps organize and version your routes. For example, with a
+                        <code>prefix="/v1"</code>, the route will become <code>/v1/your-path</code>.</p>
+                </li>
+            </ul>
+        </div>
+        <footer>
+            <p>For more details, visit the <a href="https://nublarframework.com">official documentation</a>.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn how to get started with Nublar, a simple and powerful Python-based full-stack web framework.">
+    <meta name="keywords" content="Nublar, Python framework, web development, getting started, full-stack framework">
+    <meta property="og:title" content="Getting Started with Nublar Documentation">
+    <meta property="og:description"
+        content="Complete guide to set up and run your first application with Nublar framework.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/getting-started.html">
+    <title>Getting Started - Nublar Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
+        pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .note {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 4px solid #3498db;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .callout {
+            background: #f1f8ff;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 4px solid #3498db;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Getting Started with Nublar</h1>
+
+        <h2>Installation</h2>
+        <p>Nublar is a pure Python framework with no external dependencies. To get started:</p>
+
+        <h3>1. Clone the Repository</h3>
+        <pre><code>git clone https://github.com/Himalayagup/Nublar.git
+cd nublar</code></pre>
+
+        <h3>2. Create a Virtual Environment (Recommended)</h3>
+        <pre><code># On Windows
+python -m venv venv
+venv\Scripts\activate
+
+# On macOS/Linux
+python3 -m venv venv
+source venv/bin/activate</code></pre>
+
+        <div class="note">
+            <strong>Note:</strong> While Nublar has no external dependencies, it's recommended to use a virtual
+            environment to keep your project isolated.
+        </div>
+
+        <h2>Creating Your First App</h2>
+        <p>Nublar provides a command-line tool to create new applications:</p>
+
+        <pre><code>python mediator.py startapp myapp</code></pre>
+
+        <p>This will create a new application with the following structure:</p>
+        <pre><code>myapp/
+├── __init__.py
+├── models.py    # Database models
+└── pages.py     # View handlers and routes</code></pre>
+
+        <h2>Project Structure</h2>
+        <p>A typical Nublar project looks like this:</p>
+        <pre><code>myproject/
+├── app.py              # Main application file
+├── settings.py         # Project settings
+├── static/            # Static files (CSS, JS, images)
+├── templates/         # HTML templates
+├── myapp/            # Your application
+│   ├── __init__.py
+│   ├── models.py
+│   └── pages.py
+└── run.py            # Server runner</code></pre>
+
+        <h2>Basic Configuration</h2>
+        <p>Create a <code>settings.py</code> file in your project root:</p>
+        <pre><code># settings.py
+
+# Debug mode
+DEBUG_CODE = True
+
+# Server settings
+HOST = "127.0.0.1"
+PORT = 4000
+
+# Static files
+STATIC_FOLDER = "static"
+
+# Template settings
+TEMPLATE_FOLDER = "templates"
+
+# Database settings
+DB_NAME = "db.sqlite3"
+
+# Installed apps
+ALL_APPS = [
+    "myapp",
+]</code></pre>
+
+        <h2>Creating Your First View</h2>
+        <p>Open <code>myapp/pages.py</code> and add your first view:</p>
+        <pre><code>from nublar.path import path
+from response.http_response import text_response
+
+@path("/hello")
+def hello(request, method):
+    return text_response("Hello, Nublar!")</code></pre>
+
+        <h2>Running the Server</h2>
+        <p>Start the development server:</p>
+        <pre><code>python mediator.py start</code></pre>
+
+        <p>You can also specify custom host and port:</p>
+        <pre><code>python mediator.py start --host=0.0.0.0 --port=8000</code></pre>
+
+        <div class="note">
+            <strong>Note:</strong> The server will be available at <code>http://localhost:4000</code> by default. Visit
+            <code>http://localhost:4000/hello</code> to see your first view in action.
+        </div>
+
+        <h2>Next Steps</h2>
+        <ul>
+            <li>Learn about <a href="features.html">Nublar's features</a></li>
+            <li>Explore the <a href="api-reference.html">API reference</a></li>
+            <li>Set up your <a href="database.html">database models</a></li>
+            <li>Create <a href="templates.html">HTML templates</a></li>
+        </ul>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nublar Project • Built with 🐍 and ❤️</p>
+            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a></p>
+        </div>
+    </footer>
+</body>
+
+</html>

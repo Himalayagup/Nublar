@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates - Nublar Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        nav {
+            background: var(--bg-light);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        .template-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .template-section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .example {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .note {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Templates</h1>
+        <p>Nublar provides a powerful template system that allows you to create dynamic HTML pages with ease. This guide covers everything you need to know about using templates in your Nublar application.</p>
+
+        <div class="template-section">
+            <h2>Template Basics</h2>
+            <p>Templates in Nublar are HTML files with special syntax for dynamic content. They are stored in the <code>templates</code> directory of your project.</p>
+
+            <h3>Project Structure</h3>
+            <div class="example">
+                <pre><code>myproject/
+├── templates/
+│   ├── base.html          # Base template
+│   ├── home.html          # Home page template
+│   ├── about.html         # About page template
+│   └── components/        # Reusable components
+│       ├── header.html
+│       └── footer.html</code></pre>
+            </div>
+
+            <h3>Rendering Templates</h3>
+            <div class="example">
+                <pre><code>from response.http_response import template_response
+
+@path("/home")
+def home(request, method):
+    context = {
+        "title": "Welcome to My Site",
+        "user": {
+            "name": "John",
+            "email": "john@example.com"
+        }
+    }
+    return template_response("home.html", context)</code></pre>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <h2>Template Syntax</h2>
+
+            <h3>Variables</h3>
+            <p>Use double curly braces to output variables:</p>
+            <div class="example">
+                <pre><code>&lt;h1&gt;{{ title }}&lt;/h1&gt;
+&lt;p&gt;Welcome, {{ user.name }}!&lt;/p&gt;
+&lt;p&gt;Your email is: {{ user.email }}&lt;/p&gt;</code></pre>
+            </div>
+
+            <h3>Control Structures</h3>
+            <p>Nublar supports various control structures in templates:</p>
+
+            <h4>If Statements</h4>
+            <div class="example">
+                <pre><code>{% if user.is_active %}
+    &lt;p&gt;Welcome back, {{ user.name }}!&lt;/p&gt;
+{% elif user.is_new %}
+    &lt;p&gt;Welcome to our site!&lt;/p&gt;
+{% else %}
+    &lt;p&gt;Please activate your account.&lt;/p&gt;
+{% endif %}</code></pre>
+            </div>
+
+            <h4>For Loops</h4>
+            <div class="example">
+                <pre><code>&lt;ul&gt;
+{% for item in items %}
+    &lt;li&gt;{{ item.name }} - {{ item.price }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;</code></pre>
+            </div>
+
+            <h4>Comments</h4>
+            <div class="example">
+                <pre><code>{# This is a template comment #}
+{# It won't appear in the rendered HTML #}</code></pre>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <h2>Template Inheritance</h2>
+            <p>Nublar supports template inheritance, allowing you to create a base template that other templates can extend.</p>
+
+            <h3>Base Template (To be added)</h3>
+            <div class="example">
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{% block title %}My Site{% endblock %}&lt;/title&gt;
+    &lt;link rel="stylesheet" href="/static/css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        {% include "components/header.html" %}
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        {% block content %}
+        {% endblock %}
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        {% include "components/footer.html" %}
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <h3>Child Template (To be added)</h3>
+            <div class="example">
+                <pre><code>{% extends "base.html" %}
+
+{% block title %}Home - My Site{% endblock %}
+
+{% block content %}
+    &lt;h1&gt;Welcome to Our Site&lt;/h1&gt;
+    &lt;p&gt;This is the home page content.&lt;/p&gt;
+{% endblock %}</code></pre>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <h2>Template Includes (To be added)</h2>
+            <p>You can include other template files using the <code>{% include %}</code> tag.</p>
+
+            <h3>Header Component</h3>
+            <div class="example">
+                <pre><code>&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+
+            <h3>Using Includes</h3>
+            <div class="example">
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    {% include "components/header.html" %}
+    
+    &lt;main&gt;
+        &lt;h1&gt;Page Content&lt;/h1&gt;
+        &lt;p&gt;This is the main content.&lt;/p&gt;
+    &lt;/main&gt;
+
+    {% include "components/footer.html" %}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <h2>Best Practices</h2>
+
+            <h3>1. Organize Templates</h3>
+            <ul>
+                <li>Keep templates in a logical directory structure</li>
+                <li>Use a base template for common elements</li>
+                <li>Create reusable components for repeated elements</li>
+            </ul>
+
+            <h3>2. Template Security</h3>
+            <ul>
+                <li>Always escape user input using the template engine</li>
+                <li>Be careful with sensitive data in templates</li>
+                <li>Use proper access control in your views</li>
+            </ul>
+
+            <h3>3. Performance</h3>
+            <ul>
+                <li>Keep templates simple and focused</li>
+                <li>Avoid complex logic in templates</li>
+                <li>Use template inheritance to reduce duplication</li>
+            </ul>
+
+            <div class="note">
+                <strong>Note:</strong> Templates are automatically escaped to prevent XSS attacks. If you need to output raw HTML, use the <code>|safe</code> filter: <code>{{ html_content|safe }}</code>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <h2>Common Patterns</h2>
+
+            <h3>Form Handling</h3>
+            <div class="example">
+                <pre><code>&lt;form method="POST" action="/submit"&gt;
+    &lt;div&gt;
+        &lt;label for="username"&gt;Username:&lt;/label&gt;
+        &lt;input type="text" id="username" name="username" 
+               value="{{ form.username|default('') }}"&gt;
+        {% if form.errors.username %}
+            &lt;span class="error"&gt;{{ form.errors.username }}&lt;/span&gt;
+        {% endif %}
+    &lt;/div&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>Pagination</h3>
+            <div class="example">
+                <pre><code>&lt;div class="pagination"&gt;
+    {% if page.has_previous %}
+        &lt;a href="?page={{ page.previous_page_number }}"&gt;Previous&lt;/a&gt;
+    {% endif %}
+
+    &lt;span&gt;Page {{ page.number }} of {{ page.paginator.num_pages }}&lt;/span&gt;
+
+    {% if page.has_next %}
+        &lt;a href="?page={{ page.next_page_number }}"&gt;Next&lt;/a&gt;
+    {% endif %}
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>Flash Messages</h3>
+            <div class="example">
+                <pre><code>{% if messages %}
+    &lt;div class="messages"&gt;
+        {% for message in messages %}
+            &lt;div class="message {{ message.type }}"&gt;
+                {{ message.text }}
+            &lt;/div&gt;
+        {% endfor %}
+    &lt;/div&gt;
+{% endif %}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nublar Project • Built with 🐍 and ❤️</p>
+            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a></p>
+        </div>
+    </footer>
+</body>
+</html> 

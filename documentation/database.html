@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database - Nublar Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        nav {
+            background: var(--bg-light);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        .db-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .db-section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .example {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .note {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="deployment.html">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Database</h1>
+        <p>Nublar includes a simple but powerful database system that makes it easy to work with SQLite databases. This guide covers everything you need to know about using the database in your Nublar application.</p>
+
+        <div class="db-section">
+            <h2>Configuration</h2>
+            <p>Configure your database settings in <code>settings.py</code>:</p>
+
+            <div class="example">
+                <pre><code># settings.py
+
+# Database settings
+DB_NAME = "db.sqlite3"  # Name of your SQLite database file
+
+# Installed apps (required for migrations)
+ALL_APPS = [
+    "myapp",
+]</code></pre>
+            </div>
+
+            <div class="note">
+                <strong>Note:</strong> By default, Nublar uses SQLite as its database backend. The database file will be created in your project's root directory.
+            </div>
+        </div>
+
+        <div class="db-section">
+            <h2>Models</h2>
+            <p>Models in Nublar are Python classes that represent database tables. They provide an object-oriented interface to your database.</p>
+
+            <h3>Defining Models</h3>
+            <div class="example">
+                <pre><code># myapp/models.py
+from database.base import Model, CharField, IntegerField, BooleanField, DateTimeField
+
+class User(Model):
+    name = CharField(max_length=100)
+    email = CharField(max_length=255, unique=True)
+    age = IntegerField()
+    is_active = BooleanField(default=True)
+    created_at = DateTimeField(auto_now_add=True)
+    updated_at = DateTimeField(auto_now=True)
+
+class Post(Model):
+    title = CharField(max_length=200)
+    content = CharField(max_length=1000)
+    author = CharField(max_length=100)
+    created_at = DateTimeField(auto_now_add=True)</code></pre>
+            </div>
+
+            <h3>Available Field Types</h3>
+            <ul>
+                <li><code>CharField(max_length=None)</code> - String field with optional maximum length</li>
+                <li><code>IntegerField()</code> - Integer field</li>
+                <li><code>BooleanField(default=False)</code> - Boolean field</li>
+                <li><code>TextField()</code> - Long text field</li>
+                <li><code>DateTimeField(auto_now=False, auto_now_add=False)</code> - DateTime field</li>
+            </ul>
+
+            <div class="note">
+                <strong>Note:</strong> After defining your models, you need to create and apply migrations to create the database tables.
+            </div>
+        </div>
+
+        <div class="db-section">
+            <h2>Migrations</h2>
+            <p>Nublar provides a simple migration system to manage database schema changes.</p>
+
+            <h3>Creating Migrations</h3>
+            <div class="example">
+                <pre><code># Create migrations for all apps
+python mediator.py makemigrations
+
+# Create migrations for a specific app
+python mediator.py makemigrations myapp</code></pre>
+            </div>
+
+            <h3>Applying Migrations</h3>
+            <div class="example">
+                <pre><code># Apply all pending migrations
+python mediator.py migrate</code></pre>
+            </div>
+
+            <div class="note">
+                <strong>Note:</strong> Always create migrations when you make changes to your models. This ensures that your database schema stays in sync with your models.
+            </div>
+        </div>
+
+        <div class="db-section">
+            <h2>Querying the Database</h2>
+            <p>Nublar provides a simple and intuitive API for querying the database.</p>
+
+            <h3>Creating Objects</h3>
+            <div class="example">
+                <pre><code># Create a new user
+user = User(
+    name="John Doe",
+    email="john@example.com",
+    age=30
+)
+user.save()
+
+# Create a post
+post = Post(
+    title="Hello World",
+    content="This is my first post",
+    author="John Doe"
+)
+post.save()</code></pre>
+            </div>
+
+            <h3>Retrieving Objects (Under development)</h3>
+            <div class="example">
+                <pre><code># Get all users
+users = User.objects.all()
+
+# Get a specific user
+user = User.objects.get(email="john@example.com")
+
+# Filter users
+active_users = User.objects.filter(is_active=True)
+young_users = User.objects.filter(age__lt=30)  # Less than 30
+
+# Get first/last user
+first_user = User.objects.first()
+last_user = User.objects.last()</code></pre>
+            </div>
+
+            <h3>Updating Objects (Under development)</h3>
+            <div class="example">
+                <pre><code># Update a single object
+user = User.objects.get(email="john@example.com")
+user.age = 31
+user.save()
+
+# Update multiple objects
+User.objects.filter(is_active=False).update(is_active=True)</code></pre>
+            </div>
+
+            <h3>Deleting Objects (Under development)</h3>
+            <div class="example">
+                <pre><code># Delete a single object
+user = User.objects.get(email="john@example.com")
+user.delete()
+
+# Delete multiple objects
+User.objects.filter(is_active=False).delete()</code></pre>
+            </div>
+        </div>
+
+        <div class="db-section">
+            <h2>Advanced Queries (To be added)</h2>
+
+            <h3>Complex Filters</h3>
+            <div class="example">
+                <pre><code># Multiple conditions
+users = User.objects.filter(
+    is_active=True,
+    age__gte=18,  # Greater than or equal to 18
+    email__contains="@gmail.com"
+)
+
+# OR conditions
+from database.base import Q
+users = User.objects.filter(
+    Q(age__lt=18) | Q(age__gt=65)
+)
+
+# AND conditions
+users = User.objects.filter(
+    Q(is_active=True) & Q(email__contains="@gmail.com")
+)</code></pre>
+            </div>
+
+            <h3>Ordering</h3>
+            <div class="example">
+                <pre><code># Order by single field
+users = User.objects.all().order_by("name")  # Ascending
+users = User.objects.all().order_by("-name")  # Descending
+
+# Order by multiple fields
+users = User.objects.all().order_by("is_active", "-created_at")</code></pre>
+            </div>
+
+            <h3>Limiting Results</h3>
+            <div class="example">
+                <pre><code># Get first 10 users
+users = User.objects.all()[:10]
+
+# Get users 11-20
+users = User.objects.all()[10:20]</code></pre>
+            </div>
+        </div>
+
+        <div class="db-section">
+            <h2>Best Practices</h2>
+
+            <h3>1. Model Design</h3>
+            <ul>
+                <li>Keep models focused and single-purpose</li>
+                <li>Use appropriate field types</li>
+                <li>Add indexes for frequently queried fields</li>
+                <li>Use meaningful field names</li>
+            </ul>
+
+            <h3>2. Query Optimization</h3>
+            <ul>
+                <li>Use specific queries instead of fetching all objects</li>
+                <li>Add appropriate indexes for common queries</li>
+                <li>Use bulk operations for multiple updates/deletes</li>
+                <li>Limit the number of objects retrieved</li>
+            </ul>
+
+            <h3>3. Data Integrity</h3>
+            <ul>
+                <li>Use appropriate field constraints (unique, required, etc.)</li>
+                <li>Validate data before saving</li>
+                <li>Use transactions for related operations</li>
+                <li>Back up your database regularly</li>
+            </ul>
+
+            <div class="note">
+                <strong>Note:</strong> While Nublar's database system is simple, it's designed to be efficient and reliable for most web applications. For very large applications, consider using a more robust database system.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nublar Project • Built with 🐍 and ❤️</p>
+            <p>Created by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a></p>
+        </div>
+    </footer>
+</body>
+</html> 
