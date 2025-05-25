@@ -26,7 +26,6 @@ STATIC_FOLDER = "static"
 # This gives first default value to any templates folder in app level directory if template not found then it moves to global templates folder
 TEMPLATE_FOLDER = "templates"
 
-INSTALLED_APPS = [
+ALL_APPS = [
     "example_app",
-    # Add more app names here
 ]

@@ -1,6 +1,6 @@
 import sys
 from nublar.commands import makemigrations, migrate
-from settings import INSTALLED_APPS
+from settings import ALL_APPS
 
 # Import your server components
 from nublar.http_server import CoreHTTPServer
@@ -38,9 +38,9 @@ def main():
     command = args[0]
     if command == "makemigrations":
         app = args[1] if len(args) > 1 else None
-        makemigrations.run(app or INSTALLED_APPS)
+        makemigrations.run(app or ALL_APPS)
     elif command == "migrate":
-        migrate.run(INSTALLED_APPS)
+        migrate.run(ALL_APPS)
     elif command == "runserver":
         host=None
         port=None
