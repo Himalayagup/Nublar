@@ -26,6 +26,10 @@ STATIC_FOLDER = "static"
 # This gives first default value to any templates folder in app level directory if template not found then it moves to global templates folder
 TEMPLATE_FOLDER = "templates"
 
+# Database Configuration
+# The database file used by the application. Default is 'db.sqlite3'.
+DB_NAME = ""
+
 ALL_APPS = [
     "example_app",
 ]
