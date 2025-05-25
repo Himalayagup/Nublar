@@ -2,6 +2,7 @@
 from nublar.path import path  # Import the 'path' decorator to define URL routes
 from response.http_response import text_response, html_response, template_response  # Import response functions
 from response import status_codes  # Import HTTP status codes
+from datetime import datetime
 
 # Define route for "/homepage" that responds with a text message
 @path("/homepage", methods=["GET"])  # Only allows GET method
@@ -62,3 +63,27 @@ def about_template(req, method):
     """
     template_name = "about.html"  # Template file name
     return template_response(template_name, status=status_codes.HTTP_200_OK)
+
+@path("/test-template")
+def template_demo(req, method):
+    """Demo route to showcase template features."""
+    context = {
+        "user": {
+            "name": "john doe",
+            "email": "JOHN.DOE@EXAMPLE.COM",
+            "role": "moderator",
+            "is_active": True,
+            "join_date": datetime(2024, 1, 15),
+            "bio": "This is a very long bio that will be truncated to demonstrate the truncate filter. It should show an ellipsis at the end.",
+            "empty_field": "",
+            "html_content": "<strong>This is bold text</strong> and <script>alert('xss')</script>"
+        },
+        "items": [
+            {"name": "premium laptop", "price": 1299.99},
+            {"name": "wireless mouse", "price": 29.99},
+            {"name": "gaming keyboard", "price": 149.50},
+            {"name": "monitor", "price": 299.99},
+            {"name": "usb cable", "price": 9.99}
+        ]
+    }
+    return template_response("test_template.html", context)
