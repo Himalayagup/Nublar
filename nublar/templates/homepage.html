@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>Welcome to Nublar</title>
     <style>
         :root {
@@ -11,9 +12,6 @@
             --accent-color: #007acc;
             --text-color: #333;
             --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --footer-bg: #e0e0e0;
-            --box-bg: #ffffff;
-            --box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
         body {
@@ -25,16 +23,17 @@
             flex-direction: column;
             min-height: 100vh;
             color: var(--text-color);
+            justify-content: center; /* Vertically center the content */
         }
 
         .container {
             text-align: center;
-            padding: 4rem 1rem;
+            padding: 2rem;
             flex: 1;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             color: var(--accent-color);
         }
@@ -42,17 +41,17 @@
         p {
             font-size: 1.25rem;
             margin-bottom: 2rem;
-            line-height: 1.6;
         }
 
         .box {
-            background: var(--box-bg);
+            background: white;
             display: inline-block;
-            padding: 2.5rem 3rem;
-            border-radius: 1.2rem;
-            box-shadow: var(--box-shadow);
-            max-width: 700px;
+            padding: 2rem 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
             margin: auto;
+            text-align: left;
         }
 
         code {
@@ -62,13 +61,60 @@
             font-size: 0.95rem;
         }
 
+        /* Dinosaur Animation */
+        .dinosaur {
+            font-size: 4rem;
+            animation: dinoScale 2s ease-in-out infinite;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes dinoScale {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Simplified Documentation Section */
+        .documentation {
+            margin-top: 2rem;
+        }
+
+        .documentation h2 {
+            font-size: 1.75rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .documentation p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .documentation a {
+            font-size: 1.15rem;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .documentation a:hover {
+            text-decoration: underline;
+        }
+
         footer {
             text-align: center;
-            padding: 1.5rem;
-            background-color: var(--footer-bg);
+            padding: 1rem;
+            background-color: #e0e0e0;
             font-size: 0.9rem;
             margin-top: auto;
-            border-top: 1px solid #dcdcdc;
         }
 
         footer a {
@@ -79,35 +125,30 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-        /* Add responsive design for smaller screens */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .box {
-                padding: 2rem;
-                max-width: 100%;
-            }
-        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="box">
-            <h1>Welcome to Nublar 🦖</h1>
-            <p>Your Nublar Project is up and running perfectly!</p>
-            <p>Feel free to edit your paths and logic in <code>app.py</code> or any other handler files.</p>
-            <p>Everything you need is just a function or class away!</p>
+            <h1>Welcome to Nublar <span class='dinosaur'>🦖</span></h1>
+            <p>Your Nublar Project is running smoothly.</p>
+            <p>Edit your path and logic in <code>app.py</code> or wherever your handler is.</p>
+            <p>Everything is just one function or class away!</p>
+        </div>
+
+        <!-- Simplified Documentation Section -->
+        <div class="documentation">
+            <h2>Documentation</h2>
+            <p>For setup, configuration, and customization, refer to the official documentation.</p>
+            <p><a href="https://example.com/docs" target="_blank">View Documentation</a></p>
         </div>
     </div>
 
     <footer>
         &copy; 2025 Nublar Project • Built with 🐍 and ❤️ <br>
         Made by <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">Himalaya Gupta</a><br>
-        Connect with me on <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">LinkedIn</a> | <a href="https://github.com/himalayagup" target="_blank">GitHub</a>
+        Find me on <a href="https://www.linkedin.com/in/himalayagupta/" target="_blank">LinkedIn</a> | <a href="https://github.com/himalayagup" target="_blank">GitHub</a>
     </footer>
 </body>
 
