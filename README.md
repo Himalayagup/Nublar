@@ -29,21 +29,7 @@ Visit `http://localhost:4000` to see your app running!
 - **Template Rendering**: Render HTML templates using Python context data.
 - **Error Handling**: Handle HTTP errors and provide custom error messages.
 - **Request Params Handling**: Flexible routing system to handle query params, args, headers, etc.
-
-### Features Under Development
-- **Class-based views (CBVs)**: Organize views in classes for better reusability and structure (Under Development).
-- **Database Integration**: Simple but powerful database system with model definitions and migrations.
-  - Retrieving Objects (Under Development)
-  - Updating Objects (Under Development)
-  - Deleting Objects (Under Development)
-  - Advanced Queries (To be added)
-- **Template System**:
-  - Template Inheritance (To be added)
-  - Template Includes (To be added)
-- **Deployment Features**:
-  - Monitoring and Maintenance (To be added)
-  - Advanced Logging (To be added)
-  - Performance Monitoring (To be added)
+- **CLI Option**: Offers CLI like tool to start server, run migrations etc
 
 ### Development Tools
 - **Command Line Interface**: Built-in CLI for common development tasks.
@@ -163,6 +149,21 @@ python mediator.py migrate
 # Run with custom host and port
 python mediator.py start --host=0.0.0.0 --port=8000
 ```
+
+### Features Under Development
+- **Class-based views (CBVs)**: Organize views in classes for better reusability and structure (Under Development).
+- **Database Integration**: Simple but powerful database system with model definitions and migrations.
+  - Retrieving Objects (Under Development)
+  - Updating Objects (Under Development)
+  - Deleting Objects (Under Development)
+  - Advanced Queries (To be added)
+- **Template System**:
+  - Template Inheritance (To be added)
+  - Template Includes (To be added)
+- **Deployment Features**:
+  - Monitoring and Maintenance (To be added)
+  - Advanced Logging (To be added)
+  - Performance Monitoring (To be added)
 
 ## Contributing
 
